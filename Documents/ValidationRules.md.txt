@@ -1,0 +1,21 @@
+Registration
+
+Name Required
+
+Email Valid
+
+Password Minimum 8 Characters
+
+Customer
+
+Name Required
+
+Phone 10 Digits
+
+GST Optional
+
+Product
+
+Price Greater Than Zero
+
+GST Required

@@ -1,0 +1,23 @@
+Invoice Number should be unique.
+
+Customer Email should be unique.
+
+GST Percentage
+
+5%
+
+12%
+
+18%
+
+28%
+
+Invoice Status
+
+Draft
+
+Pending
+
+Paid
+
+Cancelled

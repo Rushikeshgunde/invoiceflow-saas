@@ -1,0 +1,41 @@
+# InvoiceFlow - Product Requirement Document
+
+## Product Name
+InvoiceFlow
+
+## Tagline
+Create Professional GST Invoices in Seconds
+
+## Vision
+Build the easiest GST invoice software for Indian businesses.
+
+## Mission
+Help businesses create GST invoices in under 30 seconds.
+
+## Target Users
+
+- Freelancers
+- Agencies
+- Shop Owners
+- Retail Businesses
+- Service Providers
+
+## Core Modules
+
+- Authentication
+- Dashboard
+- Company
+- Customers
+- Products
+- Invoices
+- Reports
+- Expenses
+- Subscription
+- Settings
+
+## Business Model
+
+Free
+Starter
+Professional
+Business

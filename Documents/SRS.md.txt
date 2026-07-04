@@ -1,0 +1,29 @@
+# Software Requirement Specification
+
+## User Roles
+
+1. Super Admin
+2. Business Owner
+3. Employee
+
+## Functional Requirements
+
+Authentication
+Dashboard
+Customers
+Products
+Invoices
+Reports
+Subscription
+
+## Non Functional Requirements
+
+Responsive
+
+Fast
+
+Secure
+
+Scalable
+
+99.9% uptime

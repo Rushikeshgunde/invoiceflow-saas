@@ -1,0 +1,39 @@
+Authentication
+
+Register
+
+Login
+
+Forgot Password
+
+Dashboard
+
+Revenue
+
+Sales Chart
+
+Customer Module
+
+CRUD
+
+Search
+
+Filter
+
+Invoice Module
+
+Create Invoice
+
+Download PDF
+
+Print
+
+Email
+
+Reports
+
+Daily Sales
+
+Monthly Sales
+
+GST Report
