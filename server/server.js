@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 
 const connectDB = require("./config/db");
 const protect = require("./middleware/authMiddleware");
+const customerRoutes =require("./routes/customerRoutes");
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(cookieParser());
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
+app.use("/api/customers", customerRoutes);
 
 app.use("/api/auth", authRoutes);
 
