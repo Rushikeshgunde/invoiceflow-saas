@@ -1,0 +1,76 @@
+.recent-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px;
+  margin-top: 25px;
+  box-shadow: 0 5px 18px rgba(0,0,0,.08);
+}
+
+.recent-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.recent-header h3 {
+  font-size: 22px;
+  color: #1e293b;
+}
+
+.recent-header button {
+  border: none;
+  background: #2563eb;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.recent-header button:hover {
+  background: #1d4ed8;
+}
+
+.recent-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.recent-table th {
+  background: #f8fafc;
+  text-align: left;
+  padding: 14px;
+  color: #475569;
+  font-size: 14px;
+}
+
+.recent-table td {
+  padding: 16px 14px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.recent-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.status {
+  padding: 5px 12px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status.paid {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status.pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.status.overdue {
+  background: #fee2e2;
+  color: #dc2626;
+}

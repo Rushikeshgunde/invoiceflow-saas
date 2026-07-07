@@ -1,0 +1,124 @@
+.profile-dropdown {
+  position: relative;
+}
+
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.profile-btn span {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.arrow {
+  transition: 0.3s;
+}
+
+.arrow.rotate {
+  transform: rotate(180deg);
+}
+
+.profile-menu {
+  position: absolute;
+
+  right: 0;
+  top: 55px;
+
+  width: 260px;
+
+  background: white;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,.12);
+
+  animation: dropdown .25s ease;
+}
+
+@keyframes dropdown{
+
+from{
+
+opacity:0;
+transform:translateY(-10px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
+.profile-header{
+
+padding:20px;
+
+text-align:center;
+
+border-bottom:1px solid #eee;
+
+}
+
+.profile-header h4{
+
+margin-top:10px;
+
+margin-bottom:5px;
+
+}
+
+.profile-header p{
+
+font-size:13px;
+
+color:#777;
+
+}
+
+.profile-menu a,
+.profile-menu button{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+padding:14px 18px;
+
+text-decoration:none;
+
+color:#333;
+
+border:none;
+
+background:none;
+
+width:100%;
+
+cursor:pointer;
+
+font-size:15px;
+
+}
+
+.profile-menu a:hover,
+.profile-menu button:hover{
+
+background:#f4f7fb;
+
+}

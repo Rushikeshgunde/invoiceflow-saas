@@ -26,12 +26,22 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
     },
+    resetPasswordToken: {
+      type: String,
+      default: null,
+    },
+
+    resetPasswordExpires: {
+      type: Date,
+      default: null,
+    },
 
     role: {
       type: String,
       enum: ["owner", "staff"],
       default: "owner",
     },
+    
 
     isVerified: {
       type: Boolean,
@@ -40,7 +50,7 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 module.exports = mongoose.model("User", userSchema);
