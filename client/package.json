@@ -20,8 +20,13 @@
     "bootstrap": "^5.3.8",
     "chart.js": "^4.5.1",
     "dayjs": "^1.11.21",
+    "file-saver": "^2.0.5",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.8",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^1.23.0",
+    "multer": "^2.2.0",
     "react": "^19.2.7",
     "react-chartjs-2": "^5.3.1",
     "react-csv": "^2.2.2",
@@ -31,6 +36,7 @@
     "react-router-dom": "^7.18.1",
     "react-toastify": "^11.1.0",
     "recharts": "^3.9.2",
+    "xlsx": "^0.18.5",
     "yup": "^1.7.1"
   },
   "devDependencies": {

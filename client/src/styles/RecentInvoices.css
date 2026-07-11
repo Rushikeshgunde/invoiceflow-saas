@@ -74,3 +74,185 @@
   background: #fee2e2;
   color: #dc2626;
 }
+
+/* ==========================================
+   Recent Invoices
+========================================== */
+
+/* ==========================================
+   Recent Invoices Card
+========================================== */
+
+.recent-invoices-card {
+  width: 100%;
+  background: #ffffff;
+  border: 0.0625rem solid #e5e7eb;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 0.25rem 1rem rgba(15, 23, 42, 0.06);
+}
+
+/* ==========================================
+   Title
+========================================== */
+
+.recent-invoices-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1.25rem;
+}
+
+/* ==========================================
+   Invoice Item
+========================================== */
+
+.recent-invoices-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+
+  padding: 1rem 0;
+
+  border-bottom: 0.0625rem solid #e5e7eb;
+
+  transition: all 0.25s ease;
+}
+
+.recent-invoices-item:last-child {
+  border-bottom: none;
+}
+
+.recent-invoices-item:hover {
+  background: #f8fafc;
+  border-radius: 0.75rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+/* ==========================================
+   Left Section
+========================================== */
+
+.recent-invoices-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.recent-invoices-number {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+
+.recent-invoices-customer {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0;
+}
+
+/* ==========================================
+   Amount
+========================================== */
+
+.recent-invoices-amount {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #16a34a;
+  white-space: nowrap;
+}
+
+/* ==========================================
+   Empty State
+========================================== */
+
+.recent-invoices-empty {
+  text-align: center;
+  color: #64748b;
+  padding: 2rem 0;
+  font-size: 0.95rem;
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width: 48rem) {
+  .recent-invoices-card {
+    padding: 1rem;
+  }
+
+  .recent-invoices-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .recent-invoices-amount {
+    align-self: flex-end;
+  }
+}
+
+/* ==========================================
+   Right Section
+========================================== */
+
+.recent-invoices-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+/* ==========================================
+   Status Badge
+========================================== */
+
+.recent-invoices-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.35rem 0.8rem;
+
+  border-radius: 999rem;
+
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  text-transform: capitalize;
+}
+
+/* Paid */
+
+.recent-invoices-status.paid {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+/* Unpaid */
+
+.recent-invoices-status.unpaid {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Partially Paid */
+
+.recent-invoices-status.partially-paid {
+  background: #fef3c7;
+  color: #b45309;
+}
+@media (max-width: 48rem) {
+
+  .recent-invoices-right{
+    width:100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+}

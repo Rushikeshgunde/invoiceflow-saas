@@ -21,23 +21,54 @@ ChartJS.register(
   Legend,
 );
 
-function SalesChart() {
-  const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+function SalesChart({ data = [] }) {
+  // ==========================================
+  // Month Labels
+  // ==========================================
+
+  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",];
+
+  // ==========================================
+  // Convert API Data to Monthly Revenue
+  // ==========================================
+
+  const monthlyRevenue = new Array(12).fill(0);
+
+  data.forEach((item) => {
+    monthlyRevenue[item._id - 1] = item.total;
+  });
+
+  // ==========================================
+  // Chart Data
+  // ==========================================
+
+  const chartData = {
+    labels: months,
+
     datasets: [
       {
         label: "Revenue",
-        data: [22000, 28000, 32000, 25000, 40000, 47000, 52000],
+
+        data: monthlyRevenue,
+
         borderColor: "#2563eb",
+
         backgroundColor: "rgba(37,99,235,.15)",
+
         fill: true,
+
         tension: 0.4,
       },
     ],
   };
 
+  // ==========================================
+  // Chart Options
+  // ==========================================
+
   const options = {
     responsive: true,
+
     maintainAspectRatio: false,
 
     plugins: {
@@ -45,14 +76,24 @@ function SalesChart() {
         display: false,
       },
     },
+
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
   };
+
+  // ==========================================
+  // Render
+  // ==========================================
 
   return (
     <div className="chart-card">
       <h3>Monthly Revenue</h3>
 
       <div className="chart-wrapper">
-        <Line data={data} options={options} />
+        <Line data={chartData} options={options} />
       </div>
     </div>
   );

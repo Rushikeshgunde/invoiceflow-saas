@@ -1,0 +1,807 @@
+/* ==========================================
+   Payments Page
+========================================== */
+
+.payments-page {
+  padding: 1.5rem;
+}
+
+/* ==========================================
+   Toolbar (Search bar area)
+========================================== */
+
+.payments-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1.5rem 0;
+}
+
+.payments-toolbar input[type="text"] {
+  width: 100%;
+  max-width: 22rem;
+  padding: 0.65rem 1rem;
+  border: 0.0625rem solid #cbd5e1;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  outline: none;
+  background: #ffffff;
+  color: #1e293b;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.payments-toolbar input[type="text"]::placeholder {
+  color: #94a3b8;
+}
+
+.payments-toolbar input[type="text"]:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 0.1875rem rgba(37, 99, 235, 0.12);
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width: 48rem) {
+  .payments-page {
+    padding: 1rem;
+  }
+
+  .payments-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .payments-toolbar input[type="text"] {
+    max-width: 100%;
+  }
+}
+
+/* ==========================================
+   Summary Grid Wrapper
+   4-column grid, auto-collapses on smaller screens
+========================================== */
+
+.payment-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ==========================================
+   Base Card Style
+========================================== */
+
+.payment-summary-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #ffffff;
+  border: 0.0625rem solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(15, 23, 42, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Slight lift on hover for interactivity */
+.payment-summary-card:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 0.5rem 1.25rem rgba(15, 23, 42, 0.08);
+}
+
+/* ==========================================
+   Icon Circle
+   Base style, color set individually per card variant below
+========================================== */
+
+.payment-summary-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  font-size: 1.25rem;
+}
+
+/* ==========================================
+   Text Content (title + value)
+========================================== */
+
+.payment-summary-content h4 {
+  margin: 0 0 0.35rem 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.payment-summary-content h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+/* ==========================================
+   Card Color Variants
+   Each variant colors its icon circle + icon
+========================================== */
+
+/* Blue - Total Payments */
+.payment-card-blue .payment-summary-icon {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+/* Green - Amount Received */
+.payment-card-green .payment-summary-icon {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/* Orange - This Month */
+.payment-card-orange .payment-summary-icon {
+  background: #ffedd5;
+  color: #ea580c;
+}
+
+/* Purple - Average Payment */
+.payment-card-purple .payment-summary-icon {
+  background: #f3e8ff;
+  color: #9333ea;
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+/* Tablet - 2 columns */
+@media (max-width: 64rem) {
+  .payment-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile - 1 column */
+@media (max-width: 30rem) {
+  .payment-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-summary-card {
+    padding: 1rem;
+  }
+
+  .payment-summary-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.1rem;
+  }
+
+  .payment-summary-content h2 {
+    font-size: 1.2rem;
+  }
+}
+
+/* ==========================================
+   Payments Page
+========================================== */
+
+.payments-page {
+  padding: 1.5rem;
+}
+
+/* ==========================================
+   Toolbar (Search bar area)
+========================================== */
+
+.payments-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1.5rem 0;
+}
+
+.payments-toolbar input[type="text"] {
+  width: 100%;
+  max-width: 22rem;
+  padding: 0.65rem 1rem;
+  border: 0.0625rem solid #cbd5e1;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  outline: none;
+  background: #ffffff;
+  color: #1e293b;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.payments-toolbar input[type="text"]::placeholder {
+  color: #94a3b8;
+}
+
+.payments-toolbar input[type="text"]:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 0.1875rem rgba(37, 99, 235, 0.12);
+}
+
+/* ==========================================
+   Payment Table Wrapper
+   Card container + horizontal scroll on small screens
+========================================== */
+
+.payment-table-wrapper {
+  background: #ffffff;
+  border: 0.0625rem solid #e2e8f0;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(15, 23, 42, 0.05);
+  overflow-x: auto;
+}
+
+/* ==========================================
+   Table Base
+========================================== */
+
+.payment-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* ==========================================
+   Table Head
+========================================== */
+
+.payment-table thead {
+  background: #f8fafc;
+  border-bottom: 0.0625rem solid #e2e8f0;
+}
+
+.payment-table thead th {
+  text-align: left;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* ==========================================
+   Table Body Rows
+========================================== */
+
+.payment-table tbody tr {
+  border-bottom: 0.0625rem solid #f1f5f9;
+  transition: background 0.15s ease;
+}
+
+.payment-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.payment-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.payment-table tbody td {
+  padding: 0.9rem 1.1rem;
+  color: #1e293b;
+  vertical-align: middle;
+}
+
+/* ==========================================
+   Empty State
+========================================== */
+
+.payment-table-empty {
+  text-align: center;
+  padding: 2.5rem 1rem !important;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  white-space: normal;
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width: 48rem) {
+  .payments-page {
+    padding: 1rem;
+  }
+
+  .payments-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .payments-toolbar input[type="text"] {
+    max-width: 100%;
+  }
+
+  .payment-table {
+    font-size: 0.85rem;
+  }
+
+  .payment-table thead th,
+  .payment-table tbody td {
+    padding: 0.7rem 0.8rem;
+  }
+}
+
+/* ==========================================
+   Payment Method Badge
+========================================== */
+
+.payment-method {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  background: #f1f5f9;
+  color: #475569;
+}
+
+/* Method-specific colors (class names generated from paymentMethod, lowercased + spaces to hyphens) */
+
+.payment-method.cash {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.payment-method.card {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.payment-method.upi {
+  background: #f3e8ff;
+  color: #9333ea;
+}
+
+.payment-method.bank-transfer {
+  background: #ffedd5;
+  color: #ea580c;
+}
+
+.payment-method.cheque {
+  background: #fef9c3;
+  color: #ca8a04;
+}
+
+/* ==========================================
+   Action Buttons (View / Edit / Delete)
+========================================== */
+
+.payment-action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.payment-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.4rem;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.payment-action-btn:hover {
+  transform: translateY(-0.05rem);
+}
+
+/* View button */
+.payment-view-btn:hover {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+/* Edit button */
+.payment-edit-btn:hover {
+  background: #fef9c3;
+  color: #ca8a04;
+}
+
+/* Delete button */
+.payment-delete-btn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* ==========================================
+   Payment Modal Overlay
+========================================== */
+
+.payment-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: paymentFadeIn 0.2s ease;
+}
+
+@keyframes paymentFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ==========================================
+   Modal Box
+========================================== */
+
+.payment-modal {
+  background: #ffffff;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 28rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 1.25rem 2.5rem rgba(15, 23, 42, 0.2);
+  animation: paymentSlideUp 0.25s ease;
+}
+
+@keyframes paymentSlideUp {
+  from {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ==========================================
+   Modal Header
+========================================== */
+
+.payment-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 0.0625rem solid #f1f5f9;
+}
+
+.payment-modal-header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.payment-modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.payment-modal-close:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* ==========================================
+   Modal Body
+========================================== */
+
+.payment-modal-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Each detail row: label left, value right */
+.payment-detail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 0.0625rem solid #f8fafc;
+}
+
+.payment-detail:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.payment-detail span {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.payment-detail strong {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+  text-align: right;
+}
+
+/* Notes row - stacks vertically instead of side-by-side */
+.payment-detail.payment-notes {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+
+.payment-detail.payment-notes p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #1e293b;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* ==========================================
+   Modal Footer
+========================================== */
+
+.payment-modal-footer {
+  padding: 1rem 1.5rem 1.5rem;
+}
+
+.payment-close-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.payment-close-btn:hover {
+  background: #1d4ed8;
+}
+
+/* ==========================================
+   Responsive - Bottom Sheet on Mobile
+========================================== */
+
+@media (max-width: 40rem) {
+  .payment-modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .payment-modal {
+    max-width: 100%;
+    max-height: 85vh;
+    border-radius: 1rem 1rem 0 0;
+    animation: paymentSheetUp 0.25s ease;
+  }
+
+  @keyframes paymentSheetUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+}
+
+/* ==========================================
+   Payment Form Modal Box
+   (wider than the view-details modal)
+========================================== */
+
+.payment-form-modal {
+  background: #ffffff;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 32rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 1.25rem 2.5rem rgba(15, 23, 42, 0.2);
+  animation: paymentSlideUp 0.25s ease;
+}
+
+/* Small × close button in the form header */
+.payment-form-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.payment-form-close-btn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* ==========================================
+   Form Layout
+========================================== */
+
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.5rem;
+}
+
+.payment-form label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+  margin-top: 0.75rem;
+}
+
+.payment-form label:first-of-type {
+  margin-top: 0;
+}
+
+/* ==========================================
+   Inputs, Selects, Textarea
+========================================== */
+
+.payment-form input,
+.payment-form select,
+.payment-form textarea {
+  width: 100%;
+  padding: 0.65rem 0.875rem;
+  border: 0.0625rem solid #cbd5e1;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #1e293b;
+  background: #ffffff;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.payment-form input:focus,
+.payment-form select:focus,
+.payment-form textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 0.1875rem rgba(37, 99, 235, 0.12);
+}
+
+.payment-form textarea {
+  resize: vertical;
+  min-height: 5rem;
+}
+
+.payment-form select {
+  cursor: pointer;
+}
+
+/* ==========================================
+   Error Messages
+========================================== */
+
+.payment-form p {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.78rem;
+  color: #dc2626;
+  min-height: 1rem;
+}
+
+.payment-form p:empty {
+  margin: 0;
+  min-height: 0;
+}
+
+/* ==========================================
+   Form Actions (Cancel / Save)
+========================================== */
+
+.payment-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 0.0625rem solid #f1f5f9;
+}
+
+.payment-cancel-btn {
+  padding: 0.7rem 1.5rem;
+  background: #f1f5f9;
+  color: #475569;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.payment-cancel-btn:hover {
+  background: #e2e8f0;
+}
+
+.payment-save-btn {
+  padding: 0.7rem 1.75rem;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.payment-save-btn:hover {
+  background: #1d4ed8;
+}
+
+.payment-save-btn:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}
+
+/* ==========================================
+   Responsive - Bottom Sheet on Mobile
+========================================== */
+
+@media (max-width: 40rem) {
+  .payment-form-modal {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 1rem 1rem 0 0;
+    animation: paymentSheetUp 0.25s ease;
+  }
+
+  .payment-form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .payment-cancel-btn,
+  .payment-save-btn {
+    width: 100%;
+  }
+}

@@ -31,7 +31,7 @@ function Topbar() {
           <FaBars />
         </button>
 
-        <div className="search-box">
+        <div className="top-search-box">
          
           <GlobalSearch  />
           

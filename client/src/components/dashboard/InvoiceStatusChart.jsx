@@ -4,15 +4,25 @@ import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function InvoiceStatusChart() {
-  const data = {
-    labels: ["Paid", "Pending", "Overdue"],
+function InvoiceStatusChart({ data }) {
+  const chartData = {
+    labels: ["Paid", "Unpaid", "Partially Paid"],
 
     datasets: [
       {
-        data: [65, 20, 15],
+        data: [
+          data?.paid || 0,
+          data?.unpaid || 0,
+          data?.partiallyPaid || 0,
+        ],
 
-        backgroundColor: ["#22c55e", "#f59e0b", "#ef4444"],
+        backgroundColor: [
+          "#22c55e",
+          "#ef4444",
+          "#f59e0b",
+        ],
+
+        borderWidth: 1,
       },
     ],
   };
@@ -34,7 +44,7 @@ function InvoiceStatusChart() {
       <h3>Invoice Status</h3>
 
       <div className="chart-wrapper">
-        <Doughnut data={data} options={options} />
+        <Doughnut data={chartData} options={options} />
       </div>
     </div>
   );

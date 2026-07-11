@@ -1,0 +1,124 @@
+/* UpcomingDueInvoices.css */
+
+/* Main card container */
+.upcoming-due-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  margin-top: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  /* height: 100%; */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card title */
+.upcoming-due-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+/* Empty state text */
+.upcoming-due-empty {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1.5rem 0;
+  margin: 0;
+}
+
+/* List wrapper - scrollable if list is long */
+.upcoming-due-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 20rem;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+/* Custom scrollbar (optional, subtle) */
+.upcoming-due-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.upcoming-due-list::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+  border-radius: 4px;
+}
+
+/* Single invoice row */
+.upcoming-due-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid #f1f5f9;
+  border-radius: 0.5rem;
+  background: #f9fafb;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.upcoming-due-item:hover {
+  background: #eff6ff;
+  border-color: #dbeafe;
+}
+
+/* Invoice number */
+.upcoming-due-item h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 0.2rem 0;
+}
+
+/* Customer name */
+.upcoming-due-item p {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin: 0 0 0.2rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 11rem;
+}
+
+/* Due date text */
+.upcoming-due-item small {
+  font-size: 0.75rem;
+  color: #ef4444; /* red tint to draw attention to due dates */
+  font-weight: 500;
+}
+
+/* Amount (grand total) */
+.upcoming-due-item strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #2563eb; /* accent color, consistent with rest of app */
+  white-space: nowrap;
+}
+
+/* Responsive - mobile */
+@media (max-width: 480px) {
+  .upcoming-due-card {
+    padding: 1rem;
+  }
+
+  .upcoming-due-item {
+    padding: 0.6rem 0.7rem;
+  }
+
+  .upcoming-due-item p {
+    max-width: 7rem;
+  }
+
+  .upcoming-due-item strong {
+    font-size: 0.85rem;
+  }
+}

@@ -1,0 +1,989 @@
+/* ==========================================
+   Expenses Page
+========================================== */
+
+.expenses-page {
+  padding: 1.5rem;
+}
+
+/* ==========================================
+   Toolbar (Search bar area)
+========================================== */
+
+.expenses-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1.5rem 0;
+}
+
+.expenses-toolbar input[type="text"] {
+  width: 100%;
+  max-width: 22rem;
+  padding: 0.65rem 1rem;
+  border: 0.0625rem solid #cbd5e1;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  outline: none;
+  background: #ffffff;
+  color: #1e293b;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.expenses-toolbar input[type="text"]::placeholder {
+  color: #94a3b8;
+}
+
+.expenses-toolbar input[type="text"]:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 0.1875rem rgba(37, 99, 235, 0.12);
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width: 48rem) {
+  .expenses-page {
+    padding: 1rem;
+  }
+
+  .expenses-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .expenses-toolbar input[type="text"] {
+    max-width: 100%;
+  }
+}
+
+/* ==========================================
+   Expense Summary Grid
+========================================== */
+
+.expense-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ==========================================
+   Summary Card
+========================================== */
+
+.expense-summary-card {
+  background: #ffffff;
+  border: 0.0625rem solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(15, 23, 42, 0.05);
+  border-left: 0.25rem solid transparent;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.expense-summary-card:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 0.5rem 1.25rem rgba(15, 23, 42, 0.08);
+}
+
+.expense-summary-card h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.expense-summary-card h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+/* ==========================================
+   Card Accent Colors
+   1st = Total, 2nd = This Month, 3rd = Paid, 4th = Pending
+========================================== */
+
+.expense-summary-card:nth-child(1) {
+  border-left-color: #2563eb; /* blue - total */
+}
+
+.expense-summary-card:nth-child(2) {
+  border-left-color: #9333ea; /* purple - this month */
+}
+
+.expense-summary-card:nth-child(3) {
+  border-left-color: #16a34a; /* green - paid */
+}
+
+.expense-summary-card:nth-child(3) h2 {
+  color: #16a34a;
+}
+
+.expense-summary-card:nth-child(4) {
+  border-left-color: #ea580c; /* orange - pending */
+}
+
+.expense-summary-card:nth-child(4) h2 {
+  color: #ea580c;
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width: 64rem) {
+  .expense-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 30rem) {
+  .expense-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .expense-summary-card {
+    padding: 1rem;
+  }
+
+  .expense-summary-card h2 {
+    font-size: 1.2rem;
+  }
+}
+
+/* ==========================================
+   Expense Table Wrapper
+   Card container + horizontal scroll on small screens
+========================================== */
+
+.expense-table-wrapper {
+  background: #ffffff;
+  border: 0.0625rem solid #e2e8f0;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(15, 23, 42, 0.05);
+  overflow-x: auto;
+}
+
+/* ==========================================
+   Table Base
+========================================== */
+
+.expense-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* ==========================================
+   Table Head
+========================================== */
+
+.expense-table thead {
+  background: #f8fafc;
+  border-bottom: 0.0625rem solid #e2e8f0;
+}
+
+.expense-table thead th {
+  text-align: left;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* ==========================================
+   Table Body Rows
+========================================== */
+
+.expense-table tbody tr {
+  border-bottom: 0.0625rem solid #f1f5f9;
+  transition: background 0.15s ease;
+}
+
+.expense-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.expense-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.expense-table tbody td {
+  padding: 0.9rem 1.1rem;
+  color: #1e293b;
+  vertical-align: middle;
+}
+
+/* ==========================================
+   Empty State
+========================================== */
+
+.expense-table-empty {
+  text-align: center;
+  padding: 2.5rem 1rem !important;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  white-space: normal;
+}
+
+/* ==========================================
+   Loading State
+========================================== */
+
+.expense-loading {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  background: #ffffff;
+  border: 0.0625rem solid #e2e8f0;
+  border-radius: 0.75rem;
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width: 48rem) {
+  .expense-table {
+    font-size: 0.85rem;
+  }
+
+  .expense-table thead th,
+  .expense-table tbody td {
+    padding: 0.7rem 0.8rem;
+  }
+}
+
+/* ==========================================
+   Expense Status Badge
+========================================== */
+
+.expense-status-badge {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  border-radius: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.expense-status-badge.paid {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.expense-status-badge.pending {
+  background: #ffedd5;
+  color: #ea580c;
+}
+
+.expense-status-badge.overdue {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.expense-status-badge.cancelled {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+/* ==========================================
+   Action Buttons (View / Edit / Delete)
+========================================== */
+
+.expense-action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.expense-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.4rem;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.expense-action-btn:hover {
+  transform: translateY(-0.05rem);
+}
+
+/* View button */
+.expense-view-btn{
+  background: #d3e4f9;
+  color: #185cef;
+}
+.expense-view-btn:hover {
+  background: #dbeafe;
+  color: #0051ff;
+}
+
+/* Edit button */
+.expense-edit-btn {
+  background: #fef9c3;
+  color: #ca8a04;
+}
+.expense-edit-btn:hover {
+  background: #fef9c3;
+  color: #ca8a04;
+}
+
+/* Delete button */
+.expense-delete-btn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+.expense-delete-btn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* ==========================================
+   Expense Modal Overlay
+========================================== */
+
+.expense-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: expenseFadeIn 0.2s ease;
+}
+
+@keyframes expenseFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ==========================================
+   Modal Box
+========================================== */
+
+.expense-modal {
+  background: #ffffff;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 28rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 1.25rem 2.5rem rgba(15, 23, 42, 0.2);
+  animation: expenseSlideUp 0.25s ease;
+}
+
+@keyframes expenseSlideUp {
+  from {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ==========================================
+   Modal Header
+========================================== */
+
+.expense-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 0.0625rem solid #f1f5f9;
+}
+
+.expense-modal-header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.expense-modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.expense-modal-close:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* ==========================================
+   Modal Body
+========================================== */
+
+.expense-modal-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Each detail row: label left, value right */
+.expense-modal-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 0.0625rem solid #f8fafc;
+}
+
+.expense-modal-row:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.expense-modal-row strong {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.expense-modal-row span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+  text-align: right;
+}
+
+/* ==========================================
+   Modal Footer
+========================================== */
+
+.expense-modal-footer {
+  padding: 1rem 1.5rem 1.5rem;
+}
+
+.expense-close-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.expense-close-btn:hover {
+  background: #1d4ed8;
+}
+
+/* ==========================================
+   Responsive - Bottom Sheet on Mobile
+========================================== */
+
+@media (max-width: 40rem) {
+  .expense-modal-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .expense-modal {
+    max-width: 100%;
+    max-height: 85vh;
+    border-radius: 1rem 1rem 0 0;
+    animation: expenseSheetUp 0.25s ease;
+  }
+
+  @keyframes expenseSheetUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+}
+
+
+/* ==========================================
+   Expense Form Overlay + Modal
+========================================== */
+
+.expense-form-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: expenseFadeIn 0.2s ease;
+}
+
+.expense-form-modal {
+  background: #ffffff;
+  border-radius: 1rem;
+  width: 100%;
+  max-width: 38rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 1.25rem 2.5rem rgba(15, 23, 42, 0.2);
+  animation: expenseSlideUp 0.25s ease;
+}
+
+/* ==========================================
+   Form Header
+========================================== */
+
+.expense-form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 0.0625rem solid #f1f5f9;
+}
+
+.expense-form-header h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.expense-form-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.expense-form-close:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* ==========================================
+   Form Layout - 2 column grid
+========================================== */
+
+.expense-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.expense-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.expense-form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.expense-full-width {
+  grid-column: 1 / -1;
+}
+
+/* ==========================================
+   Inputs, Selects, Textarea
+========================================== */
+
+.expense-form input,
+.expense-form select,
+.expense-form textarea {
+  width: 100%;
+  padding: 0.65rem 0.875rem;
+  border: 0.0625rem solid #cbd5e1;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #1e293b;
+  background: #ffffff;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.expense-form input:focus,
+.expense-form select:focus,
+.expense-form textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 0.1875rem rgba(37, 99, 235, 0.12);
+}
+
+.expense-form select {
+  cursor: pointer;
+}
+
+.expense-form textarea {
+  resize: vertical;
+  min-height: 5rem;
+}
+
+/* ==========================================
+   Form Actions (Cancel / Save)
+========================================== */
+
+.expense-form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  padding-top: 1.25rem;
+  border-top: 0.0625rem solid #f1f5f9;
+}
+
+.expense-cancel-btn {
+  padding: 0.7rem 1.5rem;
+  background: #f1f5f9;
+  color: #475569;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.expense-cancel-btn:hover {
+  background: #e2e8f0;
+}
+
+.expense-save-btn {
+  padding: 0.7rem 1.75rem;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.expense-save-btn:hover {
+  background: #1d4ed8;
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width: 40rem) {
+  .expense-form-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .expense-form-modal {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 1rem 1rem 0 0;
+    animation: expenseSheetUp 0.25s ease;
+  }
+
+  .expense-form {
+    grid-template-columns: 1fr;
+    padding: 1.25rem;
+  }
+
+  .expense-form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .expense-cancel-btn,
+  .expense-save-btn {
+    width: 100%;
+  }
+}
+
+.expense-error {
+  /* display: block; */
+  /* margin-top: 0.3rem; */
+  font-size: 0.8rem;
+  color: #dc2626;
+}
+
+.expense-save-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.expense-form-group input,
+.expense-form-group select,
+.expense-form-group textarea {
+  width: 100%;
+}
+
+/* ==========================================
+   Expense Filter Bar
+========================================== */
+
+.expense-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  background: #ffffff;
+  border: 0.0625rem solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 0.25rem 0.75rem rgba(15, 23, 42, 0.05);
+}
+
+/* ==========================================
+   Search Input
+   Grows to fill remaining space
+========================================== */
+
+.expense-filter input[type="text"] {
+  flex: 1 1 14rem;
+  min-width: 12rem;
+  padding: 0.65rem 1rem;
+  border: 0.0625rem solid #cbd5e1;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  color: #1e293b;
+  background: #ffffff;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.expense-filter input[type="text"]::placeholder {
+  color: #94a3b8;
+}
+
+.expense-filter input[type="text"]:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 0.1875rem rgba(37, 99, 235, 0.12);
+}
+
+/* ==========================================
+   Dropdowns (Category / Status / Payment Method)
+========================================== */
+
+.expense-filter select {
+  flex: 0 1 10rem;
+  padding: 0.65rem 0.875rem;
+  border: 0.0625rem solid #cbd5e1;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  color: #1e293b;
+  background: #ffffff;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.expense-filter select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 0.1875rem rgba(37, 99, 235, 0.12);
+}
+
+/* ==========================================
+   Reset Button
+========================================== */
+
+.expense-reset-btn {
+  flex-shrink: 0;
+  padding: 0.65rem 1.25rem;
+  background: #f1f5f9;
+  color: #475569;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.expense-reset-btn:hover {
+  background: #e2e8f0;
+  color: #dc2626;
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width: 48rem) {
+  .expense-filter {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.875rem;
+  }
+
+  .expense-filter input[type="text"],
+  .expense-filter select,
+  .expense-reset-btn {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
+
+/* ==========================================
+   Expense Export Wrapper
+   Relative positioning for dropdown menu
+========================================== */
+
+.expense-export {
+  position: relative;
+  display: inline-block;
+}
+
+/* ==========================================
+   Export Trigger Button
+========================================== */
+
+.expense-export-btn {
+  padding: 0.65rem 1.25rem;
+  margin-right: 0.35rem;
+  justify-content: right;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  background: #deca15;
+  color: #334155;
+  border: 0.0625rem solid #cdd7e2;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.expense-export-btn:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+/* ==========================================
+   Dropdown Menu
+========================================== */
+
+.expense-export-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 10rem;
+  background: #ffffff;
+  border: 0.0625rem solid #e2e8f0;
+  border-radius: 0.625rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(15, 23, 42, 0.12);
+  padding: 0.4rem;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  animation: expenseExportFadeIn 0.15s ease;
+}
+
+@keyframes expenseExportFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================
+   Dropdown Menu Items
+========================================== */
+
+.expense-export-menu button {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  background: transparent;
+  border: none;
+  border-radius: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #334155;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+
+.expense-export-menu button svg {
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.expense-export-menu button:hover {
+  background: #f1f5f9;
+}
+
+/* Icon color per file type */
+
+.expense-export-menu button:nth-child(1) svg {
+  color: #dc2626; /* PDF - red */
+}
+
+.expense-export-menu button:nth-child(2) svg {
+  color: #16a34a; /* Excel - green */
+}
+
+.expense-export-menu button:nth-child(3) svg {
+  color: #2563eb; /* CSV - blue */
+}

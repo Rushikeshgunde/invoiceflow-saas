@@ -7,30 +7,34 @@ import {
 
 import StatsCard from "./StatsCard";
 
-function StatsCards() {
+function StatsCards({ stats }) {
+  if (!stats) {
+    return <h3>Loading...</h3>;
+  }
+
   const cards = [
     {
       title: "Total Revenue",
-      value: "₹1,25,000",
-      growth: "12.5%",
+      value: `₹${stats.totalRevenue.toLocaleString()}`,
+      growth: "",
       icon: <FaIndianRupeeSign />,
     },
     {
       title: "Total Invoices",
-      value: "125",
-      growth: "8.2%",
+      value: stats.totalInvoices,
+      growth: "",
       icon: <FaFileInvoice />,
     },
     {
       title: "Customers",
-      value: "85",
-      growth: "5.6%",
+      value: stats.totalCustomers,
+      growth: "",
       icon: <FaUsers />,
     },
     {
       title: "Products",
-      value: "230",
-      growth: "2.1%",
+      value: stats.totalProducts,
+      growth: "",
       icon: <FaBox />,
     },
   ];
@@ -38,10 +42,7 @@ function StatsCards() {
   return (
     <div className="stats-grid">
       {cards.map((card, index) => (
-        <StatsCard
-          key={index}
-          {...card}
-        />
+        <StatsCard key={index} {...card} />
       ))}
     </div>
   );

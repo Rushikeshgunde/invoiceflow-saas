@@ -1,0 +1,155 @@
+/* ==========================================
+   Activity Card
+========================================== */
+
+.activity-card {
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  border: 0.0625rem solid #e2e8f0;
+  box-shadow: 0 0.25rem 1rem rgba(15, 23, 42, 0.08);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ==========================================
+   Header
+========================================== */
+
+.activity-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+/* ==========================================
+   Empty
+========================================== */
+
+.activity-empty {
+  text-align: center;
+  color: #64748b;
+  padding: 2rem 0;
+}
+
+/* ==========================================
+   List
+========================================== */
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ==========================================
+   Item
+========================================== */
+
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+
+  padding-bottom: 1rem;
+
+  border-bottom: 0.0625rem solid #f1f5f9;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* ==========================================
+   Icons
+========================================== */
+
+.activity-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #ffffff;
+
+  flex-shrink: 0;
+
+  font-size: 1rem;
+}
+
+.activity-icon.invoice {
+  background: #2563eb;
+}
+
+.activity-icon.customer {
+  background: #16a34a;
+}
+
+.activity-icon.product {
+  background: #f59e0b;
+}
+
+.activity-icon.default {
+  background: #64748b;
+}
+
+/* ==========================================
+   Content
+========================================== */
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-heading {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1e293b;
+
+  margin-bottom: 0.35rem;
+}
+
+.activity-time {
+  font-size: 0.82rem;
+  color: #64748b;
+}
+
+/* ==========================================
+   Hover
+========================================== */
+
+.activity-item:hover {
+  transform: translateX(0.25rem);
+  transition: all 0.25s ease;
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width: 48rem) {
+  .activity-item {
+    gap: 0.75rem;
+  }
+
+  .activity-icon {
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 0.9rem;
+  }
+
+  .activity-heading {
+    font-size: 0.9rem;
+  }
+
+  .activity-time {
+    font-size: 0.75rem;
+  }
+}

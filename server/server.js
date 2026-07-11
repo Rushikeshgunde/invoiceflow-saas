@@ -2,10 +2,17 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 
 const connectDB = require("./config/db");
 const protect = require("./middleware/authMiddleware");
-const customerRoutes =require("./routes/customerRoutes");
+const customerRoutes = require("./routes/customerRoutes");
+const productRoutes = require("./routes/productRoutes");
+const invoiceRoutes = require("./routes/invoiceRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
+const companyRoutes = require("./routes/companyRoutes");
+// const paymentRoutes = require("./routes/paymentRoutes");
+const expenseRoutes = require("./routes/expenseRoutes");
 
 dotenv.config();
 
@@ -22,6 +29,13 @@ app.use(cookieParser());
 // Routes
 const authRoutes = require("./routes/authRoutes");
 app.use("/api/customers", customerRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/invoices", invoiceRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/company", companyRoutes);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+// app.use("/api/payments", paymentRoutes);
+app.use("/api/expenses", expenseRoutes);
 
 app.use("/api/auth", authRoutes);
 
@@ -48,5 +62,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server Running on Port ${PORT}`);
 });
-
-
