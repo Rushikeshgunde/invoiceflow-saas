@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
 
+    profileImage: {
+      type: String,
+      default: "",
+    },
     password: {
       type: String,
       required: [true, "Password is required"],
@@ -41,7 +45,6 @@ const userSchema = new mongoose.Schema(
       enum: ["owner", "staff"],
       default: "owner",
     },
-    
 
     isVerified: {
       type: Boolean,

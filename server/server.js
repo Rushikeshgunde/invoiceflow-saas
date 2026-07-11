@@ -13,6 +13,7 @@ const dashboardRoutes = require("./routes/dashboardRoutes");
 const companyRoutes = require("./routes/companyRoutes");
 // const paymentRoutes = require("./routes/paymentRoutes");
 const expenseRoutes = require("./routes/expenseRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 dotenv.config();
 
@@ -36,6 +37,8 @@ app.use("/api/company", companyRoutes);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // app.use("/api/payments", paymentRoutes);
 app.use("/api/expenses", expenseRoutes);
+app.use("/api/users", userRoutes);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api/auth", authRoutes);
 
