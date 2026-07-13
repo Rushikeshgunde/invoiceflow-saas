@@ -8,15 +8,17 @@ function StatsCard({ title, value, icon, growth }) {
           {icon}
         </div>
 
-        <span className="stats-growth">
+        {/* <span className="stats-growth">
           ↑ {growth}
-        </span>
+        </span> */}
       </div>
 
       <h3>{value}</h3>
 
       <p>{title}</p>
     </div>
+
+    
   );
 }
 

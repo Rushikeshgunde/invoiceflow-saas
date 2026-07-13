@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNotification } from "../../context/NotificationContext";
 
 import CustomerInput from "./CustomerInput";
 import CustomerSelect from "./CustomerSelect";
@@ -12,6 +13,9 @@ import { successToast, errorToast } from "../../utils/toast";
 import "../../styles/Customers.css";
 
 function CustomerForm({ onClose, refreshCustomers, customer }) {
+
+  const { refreshNotifications } = useNotification();
+
   const {
     register,
     handleSubmit,
@@ -75,26 +79,34 @@ function CustomerForm({ onClose, refreshCustomers, customer }) {
   // Submit
   // ==========================================
 
-  const onSubmit = async (data) => {
-    try {
-      if (customer) {
-        await updateCustomer(customer._id, data);
-        successToast("Customer updated successfully.");
-      } else {
-        await createCustomer(data);
-        successToast("Customer added successfully.");
-      }
+const onSubmit = async (data) => {
+  try {
+    if (customer) {
+      await updateCustomer(customer._id, data);
 
-      refreshCustomers();
+      successToast("Customer updated successfully.");
+    } else {
+      await createCustomer(data);
 
-      onClose();
+      // Refresh Notification Bell
+      await refreshNotifications();
 
-      reset();
-    } catch (error) {
-      console.error(error);
-      errorToast(error.response?.data?.message || "Something went wrong.");
+      successToast("Customer added successfully.");
     }
-  };
+
+    await refreshCustomers();
+
+    onClose();
+
+    reset();
+  } catch (error) {
+    console.error(error);
+
+    errorToast(
+      error.response?.data?.message || "Something went wrong."
+    );
+  }
+};
 
   return (
     <form className="customer-form" onSubmit={handleSubmit(onSubmit)}>

@@ -67,11 +67,11 @@ function Sidebar() {
       icon: "🧾",
       path: "/dashboard/invoices",
     },
-    // {
-    //   name: "Payments",
-    //   icon: "💳",
-    //   path: "/dashboard/payments",
-    // },
+    {
+      name: "Payments",
+      icon: "💳",
+      path: "/dashboard/payments",
+    },
     {
       name: "Expenses",
       // icon: <FaWallet />,
@@ -85,10 +85,16 @@ function Sidebar() {
       path: "/dashboard/reports",
     },
     {
-      name: "Settings",
+      name: "Company",
       // icon: <FaCog />,
       icon: "⚙",
-      path: "/dashboard/settings",
+      path: "/dashboard/company",
+    },
+    {
+      name: "Settings",
+      // icon:<FaCog />,
+      icon: "⚙",
+      path: "/settings",
     },
     {
       name: "Profile",

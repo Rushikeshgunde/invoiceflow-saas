@@ -36,21 +36,21 @@
 
 .sidebar-menu {
   /* flex: 1; */
-  margin-bottom: 20px;
+  margin-bottom: 14px;
   display: flex;
   flex-direction: column;
-  padding: 15px;
-  gap: 8px;
+  padding: 10px;
+  gap: 6px;
 
 }
 
 .sidebar-link {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   text-decoration: none;
   color: #cbd5e1;
-  padding: 12px 14px;
+  padding: 10px 14px;
   border-radius: 10px;
   transition: 0.3s;
   font-size: 15px;
@@ -67,10 +67,10 @@
 }
 
 .logout-btn {
-  margin: 20px;
+  margin:0 20px 0 20px;
   padding: 14px;
   border: none;
-  background: #ef4444;
+  background: #d514149b;
   color: white;
   border-radius: 10px;
   cursor: pointer;

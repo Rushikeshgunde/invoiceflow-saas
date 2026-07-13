@@ -1,3 +1,7 @@
+// ==========================================
+// Imports
+// ==========================================
+
 import { useEffect, useRef } from "react";
 import { FaTimes } from "react-icons/fa";
 
@@ -5,10 +9,17 @@ import CustomerForm from "./CustomerForm";
 
 import "../../styles/Customers.css";
 
+// ==========================================
+// Add Customer Modal
+// ==========================================
+
 function AddCustomerModal({ open, onClose, refreshCustomers, customer }) {
   const modalRef = useRef(null);
 
+  // ==========================================
   // Close on ESC
+  // ==========================================
+
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === "Escape") {
@@ -27,7 +38,10 @@ function AddCustomerModal({ open, onClose, refreshCustomers, customer }) {
     };
   }, [open, onClose]);
 
-  // Close on outside click
+  // ==========================================
+  // Close on Outside Click
+  // ==========================================
+
   const handleOutsideClick = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
       onClose();
@@ -35,6 +49,10 @@ function AddCustomerModal({ open, onClose, refreshCustomers, customer }) {
   };
 
   if (!open) return null;
+
+  // ==========================================
+  // Render
+  // ==========================================
 
   return (
     <div className="customer-modal-overlay" onClick={handleOutsideClick}>
@@ -58,9 +76,9 @@ function AddCustomerModal({ open, onClose, refreshCustomers, customer }) {
         </div>
 
         <CustomerForm
-          onClose={onClose}
-          refreshCustomers={refreshCustomers}
           customer={customer}
+          refreshCustomers={refreshCustomers}
+          onClose={onClose}
         />
       </div>
     </div>

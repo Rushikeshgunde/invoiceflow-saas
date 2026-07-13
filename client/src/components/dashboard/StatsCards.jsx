@@ -6,6 +6,7 @@ import {
 } from "react-icons/fa6";
 
 import StatsCard from "./StatsCard";
+import { FaMoneyBillWave } from "react-icons/fa";
 
 function StatsCards({ stats }) {
   if (!stats) {
@@ -13,32 +14,42 @@ function StatsCards({ stats }) {
   }
 
   const cards = [
-    {
-      title: "Total Revenue",
-      value: `₹${stats.totalRevenue.toLocaleString()}`,
-      growth: "",
-      icon: <FaIndianRupeeSign />,
-    },
-    {
-      title: "Total Invoices",
-      value: stats.totalInvoices,
-      growth: "",
-      icon: <FaFileInvoice />,
-    },
-    {
-      title: "Customers",
-      value: stats.totalCustomers,
-      growth: "",
-      icon: <FaUsers />,
-    },
-    {
-      title: "Products",
-      value: stats.totalProducts,
-      growth: "",
-      icon: <FaBox />,
-    },
-  ];
+  {
+    title: "Total Invoice Value",
+    value: `₹${stats.totalInvoiceValue.toLocaleString()}`,
+    icon: <FaFileInvoice />,
+  },
 
+  {
+    title: "Revenue Collected",
+    value: `₹${stats.revenueCollected.toLocaleString()}`,
+    icon: <FaIndianRupeeSign />,
+  },
+
+  {
+    title: "Outstanding",
+    value: `₹${stats.outstandingAmount.toLocaleString()}`,
+    icon: <FaMoneyBillWave />,
+  },
+
+  {
+    title: "Total Invoices",
+    value: stats.totalInvoices,
+    icon: <FaFileInvoice />,
+  },
+
+  {
+    title: "Customers",
+    value: stats.totalCustomers,
+    icon: <FaUsers />,
+  },
+
+  {
+    title: "Products",
+    value: stats.totalProducts,
+    icon: <FaBox />,
+  },
+];
   return (
     <div className="stats-grid">
       {cards.map((card, index) => (

@@ -30,18 +30,35 @@ const getDashboardStats = async (req, res) => {
     // Revenue
     // ==========================================
 
-    const totalRevenue = invoices.reduce(
+    // ==========================================
+    // Total Invoice Value
+    // ==========================================
+
+    const totalInvoiceValue = invoices.reduce(
       (sum, invoice) => sum + (invoice.grandTotal || 0),
       0,
     );
 
-    const paidAmount = invoices
-      .filter((invoice) => invoice.paymentStatus === "Paid")
-      .reduce((sum, invoice) => sum + invoice.grandTotal, 0);
+    // ==========================================
+    // Revenue Collected
+    // ==========================================
 
-    const pendingAmount = invoices
-      .filter((invoice) => invoice.paymentStatus !== "Paid")
-      .reduce((sum, invoice) => sum + invoice.grandTotal, 0);
+    const payments = await require("../models/Payment")
+      .find({
+        user: userId,
+      })
+      .lean();
+
+    const revenueCollected = payments.reduce(
+      (sum, payment) => sum + payment.amount,
+      0,
+    );
+
+    // ==========================================
+    // Outstanding Amount
+    // ==========================================
+
+    const outstandingAmount = totalInvoiceValue - revenueCollected;
 
     // ==========================================
     // Recent Invoices
@@ -192,9 +209,10 @@ const getDashboardStats = async (req, res) => {
         totalCustomers: customers,
         totalProducts: products,
         totalInvoices: invoices.length,
-        totalRevenue,
-        paidAmount,
-        pendingAmount,
+
+        totalInvoiceValue,
+        revenueCollected,
+        outstandingAmount,
       },
 
       recentInvoices,

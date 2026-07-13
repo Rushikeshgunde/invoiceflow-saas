@@ -2,12 +2,14 @@ import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import "../../styles/Invoices.css";
 import InvoicePDFButton from "./InvoicePDFButton";
 // import generateInvoicePDF from "../../utils/generateInvoicePDF";
+import { useNavigate } from "react-router-dom";
 
 // ==========================================
 // Invoice Row Component
 // ==========================================
 
 function InvoiceRow({ invoice, onView, onEdit, onDelete }) {
+  const navigate = useNavigate();
   return (
     <tr>
       {/* Invoice Number */}
@@ -44,8 +46,8 @@ function InvoiceRow({ invoice, onView, onEdit, onDelete }) {
       <td className="invoice-action-buttons">
         <button
           className="invoice-action-btn invoice-view-btn"
-          title="View"
-          onClick={() => onView(invoice)}
+          title="View Invoice"
+          onClick={() => navigate(`/dashboard/invoices/${invoice._id}`)}
         >
           <FaEye />
         </button>

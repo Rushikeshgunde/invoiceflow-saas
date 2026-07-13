@@ -5,6 +5,7 @@
 const Invoice = require("../models/Invoice");
 const generateInvoiceNumber = require("../utils/generateInvoiceNumber");
 const Company = require("../models/Company");
+const createNotification = require("../utils/createNotification");
 
 
 // ==========================================
@@ -84,6 +85,13 @@ const createInvoice = async (req, res) => {
       user: req.user.id,
     });
 
+    await createNotification({
+  user: req.user.id,
+  title: "Invoice Created",
+  message: `Invoice ${invoice.invoiceNumber} created successfully.`,
+  type: "invoice",
+});
+
     res.status(201).json({
       success: true,
 
@@ -102,6 +110,8 @@ const createInvoice = async (req, res) => {
   });
 }
 };
+
+
 
 // ==========================================
 // Get All Invoices

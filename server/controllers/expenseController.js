@@ -3,7 +3,7 @@
 // ==========================================
 
 const Expense = require("../models/Expense");
-
+const createNotification = require("../utils/createNotification");
 // ==========================================
 // Create Expense
 // ==========================================
@@ -15,11 +15,21 @@ const createExpense = async (req, res) => {
       user: req.user.id,
     });
 
+     await createNotification({
+  user: req.user.id,
+  title: "Expense Added",
+  message: `${expense.title} added successfully.`,
+  type: "expense",
+});
+
     res.status(201).json({
       success: true,
       message: "Expense created successfully.",
       expense,
     });
+
+   
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -27,6 +37,8 @@ const createExpense = async (req, res) => {
     });
   }
 };
+
+
 
 // ==========================================
 // Get All Expenses

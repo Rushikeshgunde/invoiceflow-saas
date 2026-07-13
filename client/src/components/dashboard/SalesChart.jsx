@@ -90,7 +90,7 @@ function SalesChart({ data = [] }) {
 
   return (
     <div className="chart-card">
-      <h3>Monthly Revenue</h3>
+      <h3>Monthly Invoice Value</h3>
 
       <div className="chart-wrapper">
         <Line data={chartData} options={options} />

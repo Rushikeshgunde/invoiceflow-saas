@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 
 import PageHeader from "../components/common/PageHeader";
+import { useNotification } from "../context/NotificationContext";
 
 import ExpenseSummary from "../components/expenses/ExpenseSummary";
 import ExpenseTable from "../components/expenses/ExpenseTable";
@@ -47,6 +48,8 @@ function Expenses() {
   const [status, setStatus] = useState("");
 
   const [paymentMethod, setPaymentMethod] = useState("");
+
+  const { refreshNotifications } = useNotification();
 
   // ==========================================
   // Load Expenses
@@ -104,29 +107,33 @@ function Expenses() {
   // Save Expense
   // ==========================================
 
-  const handleSave = async (formData) => {
-    try {
-      if (selectedEditExpense) {
-        await updateExpense(selectedEditExpense._id, formData);
+ const handleSave = async (formData) => {
+  try {
+    if (selectedEditExpense) {
+      await updateExpense(selectedEditExpense._id, formData);
 
-        toast.success("Expense updated successfully.");
-      } else {
-        await createExpense(formData);
+      await refreshNotifications();
 
-        toast.success("Expense created successfully.");
-      }
+      toast.success("Expense updated successfully.");
+    } else {
+      await createExpense(formData);
 
-      setShowForm(false);
+      await refreshNotifications();
 
-      setSelectedEditExpense(null);
-
-      loadExpenses();
-    } catch (error) {
-      console.error(error);
-
-      toast.error("Unable to save expense.");
+      toast.success("Expense created successfully.");
     }
-  };
+
+    setShowForm(false);
+
+    setSelectedEditExpense(null);
+
+    await loadExpenses();
+  } catch (error) {
+    console.error(error);
+
+    toast.error("Unable to save expense.");
+  }
+};
 
   // ==========================================
   // Delete Expense

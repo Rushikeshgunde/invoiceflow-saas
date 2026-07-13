@@ -1,0 +1,212 @@
+/* ==========================================
+Notification Bell
+========================================== */
+
+.notification-bell {
+  position: relative;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: none;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0.2rem 0.6rem rgba(0,0,0,.08);
+  transition: all .3s ease;
+}
+
+.notification-bell:hover {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.notification-bell svg {
+  font-size: 1.1rem;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -.3rem;
+  right: -.2rem;
+  min-width: 1.2rem;
+  height: 1.2rem;
+  padding: 0 .3rem;
+  border-radius: 999px;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: .7rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================
+Notification Dropdown
+========================================== */
+
+.notification-dropdown{
+position:absolute;
+top:3.5rem;
+right:0;
+width:24rem;
+background:#fff;
+border-radius:1rem;
+box-shadow:0 .5rem 1.5rem rgba(0,0,0,.15);
+overflow:hidden;
+z-index:1000;
+}
+
+.notification-dropdown-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:1rem 1.2rem;
+border-bottom:.0625rem solid #e5e7eb;
+}
+
+.notification-dropdown-header h3{
+font-size:1rem;
+font-weight:600;
+color:#1e293b;
+}
+
+.notification-mark-btn{
+border:none;
+background:none;
+color:#2563eb;
+font-size:.85rem;
+cursor:pointer;
+font-weight:600;
+}
+
+.notification-dropdown-body{
+max-height:24rem;
+overflow-y:auto;
+}
+
+.notification-empty{
+padding:2rem;
+text-align:center;
+color:#94a3b8;
+font-size:.9rem;
+}
+
+.notification-dropdown-footer{
+padding:1rem;
+border-top:.0625rem solid #e5e7eb;
+}
+
+.notification-view-all-btn{
+width:100%;
+padding:.75rem;
+border:none;
+background:#2563eb;
+color:#fff;
+border-radius:.5rem;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+
+.notification-view-all-btn:hover{
+background:#1d4ed8;
+}
+
+/* ==========================================
+Notification Item
+========================================== */
+
+.notification-item{
+display:flex;
+align-items:flex-start;
+gap:1rem;
+padding:1rem 1.2rem;
+cursor:pointer;
+transition:.3s;
+border-bottom:.0625rem solid #f1f5f9;
+position:relative;
+}
+
+.notification-item:hover{
+background:#f8fafc;
+}
+
+.notification-item:last-child{
+border-bottom:none;
+}
+
+/* Unread */
+
+.notification-unread{
+background:#eff6ff;
+}
+
+/* Icon */
+
+.notification-item-icon{
+width:2.5rem;
+height:2.5rem;
+border-radius:50%;
+background:#2563eb;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-shrink:0;
+font-size:1rem;
+}
+
+/* Content */
+
+.notification-item-content{
+flex:1;
+}
+
+.notification-item-content h4{
+font-size:.95rem;
+font-weight:600;
+color:#1e293b;
+margin-bottom:.25rem;
+}
+
+.notification-item-content p{
+font-size:.85rem;
+color:#64748b;
+line-height:1.4;
+margin-bottom:.4rem;
+}
+
+.notification-item-content span{
+font-size:.75rem;
+color:#94a3b8;
+}
+
+/* Red Dot */
+
+.notification-dot{
+width:.6rem;
+height:.6rem;
+border-radius:50%;
+background:#ef4444;
+position:absolute;
+right:1rem;
+top:1.2rem;
+}
+
+.notification-unread {
+  border-left: 4px solid #2563eb;
+  background: #eff6ff;
+}
+
+.notification-item {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.notification-item:hover {
+  background: #f8fafc;
+}

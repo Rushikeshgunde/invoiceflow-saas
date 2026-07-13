@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
+import { useNotification } from "../../context/NotificationContext";
 
 import ProductInput from "./ProductInput";
 import ProductSelect from "./ProductSelect";
@@ -9,9 +10,12 @@ import ProductSelect from "./ProductSelect";
 import productSchema from "../../utils/productValidation";
 import { createProduct, updateProduct } from "../../services/productService";
 
+
 import "../../styles/Products.css";
 
 function ProductForm({ onClose, refreshProducts, product }) {
+
+  const { refreshNotifications } = useNotification();
   const {
     register,
     handleSubmit,
@@ -85,6 +89,7 @@ function ProductForm({ onClose, refreshProducts, product }) {
         toast.success("Product updated successfully.");
       } else {
         await createProduct(data);
+        await refreshNotifications();
         toast.success("Product added successfully.");
       }
 

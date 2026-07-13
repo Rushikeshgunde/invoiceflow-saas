@@ -7,6 +7,7 @@ import InvoiceSelect from "./InvoiceSelect";
 import invoiceSchema from "../../utils/invoiceValidation";
 import InvoiceItemsTable from "./InvoiceItemsTable";
 import "../../styles/Invoices.css";
+import { useNotification } from "../../context/NotificationContext";
 
 import { createInvoice, updateInvoice } from "../../services/invoiceService";
 import { toast } from "react-toastify";
@@ -42,33 +43,7 @@ function InvoiceForm({ onClose, onAdd, onUpdate, invoice }) {
   const [products, setProducts] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [masterLoading, setMasterLoading] = useState(true);
-  // Load Products & Customers
-  // ==========================================
-  //   useEffect(() => {
-  //     const loadMasterData = async () => {
-  //       try {
-  //         const [productRes, customerRes] = await Promise.all([
-  //           getProducts(),
-  //           getCustomers(),
-  //         ]);
-
-  //         console.log(customerRes.customers);
-  // console.table(customerRes.customers);
-
-  //         setProducts(
-  //           Array.isArray(productRes?.products) ? productRes.products : [],
-  //         );
-  //         setCustomers(
-  //           Array.isArray(customerRes?.customers) ? customerRes.customers : [],
-  //         );
-  //       } catch (error) {
-  //         console.error(error);
-  //         toast.error("Unable to load master data.");
-  //       }
-  //     };
-
-  //     loadMasterData();
-  //   }, []);
+  const { refreshNotifications } = useNotification();
 
   useEffect(() => {
     const loadMasterData = async () => {
@@ -97,22 +72,6 @@ function InvoiceForm({ onClose, onAdd, onUpdate, invoice }) {
 
     loadMasterData();
   }, []);
-  // ==========================================
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     try {
-  //       const res = await getProducts();
-
-  //       // CHANGE: same defensive guard as Products.jsx — avoid setting
-  //       // non-array state if the API response shape is unexpected.
-  //       setProducts(Array.isArray(res?.products) ? res.products : []);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchProducts();
-  // }, []);
 
   const {
     register,
@@ -132,30 +91,6 @@ function InvoiceForm({ onClose, onAdd, onUpdate, invoice }) {
     },
   });
 
- 
-  // ==========================================
-  // Load Customers
-  // ==========================================
-
-  // useEffect(() => {
-  //   const fetchCustomers = async () => {
-  //     try {
-  //       const res = await getCustomers();
-
-  //       setCustomers(Array.isArray(res.customers) ? res.customers : []);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchCustomers();
-  // }, []);
-
-  // ==========================================
-  // Populate form + items while editing
-  // ==========================================
-
-
   useEffect(() => {
     if (invoice) {
       reset({
@@ -169,22 +104,21 @@ function InvoiceForm({ onClose, onAdd, onUpdate, invoice }) {
         notes: invoice.notes || "",
       });
 
-setItems(
-  invoice.items?.length
-    ? invoice.items.map((item) => ({
-        id: Date.now() + Math.random(),
-        product: item.product?._id || item.product,
-        sku: item.sku,
-        quantity: item.quantity,
-        price: item.price,
-        discount: item.discount,
-        gst: item.gst,
-        total: item.total,
-      }))
-    : [createEmptyItem()]
-);
-
-} else {
+      setItems(
+        invoice.items?.length
+          ? invoice.items.map((item) => ({
+              id: Date.now() + Math.random(),
+              product: item.product?._id || item.product,
+              sku: item.sku,
+              quantity: item.quantity,
+              price: item.price,
+              discount: item.discount,
+              gst: item.gst,
+              total: item.total,
+            }))
+          : [createEmptyItem()],
+      );
+    } else {
       reset({
         customer: "",
         invoiceNumber: `INV-${Date.now()}`,
@@ -299,8 +233,6 @@ setItems(
   // ==========================================
 
   const onSubmit = async (data) => {
-
-  
     try {
       // ==========================================
       // Validation
@@ -349,14 +281,21 @@ setItems(
         notes: data.notes,
       };
 
-     
       if (invoice) {
         const response = await updateInvoice(invoice._id, invoiceData);
+
+        await refreshNotifications();
+
         toast.success(response.message || "Invoice updated successfully.");
+
         onUpdate(response.invoice);
       } else {
         const response = await createInvoice(invoiceData);
+
+        await refreshNotifications();
+
         toast.success(response.message || "Invoice added successfully.");
+
         onAdd(response.invoice);
       }
 
@@ -366,7 +305,6 @@ setItems(
       toast.error(error.response?.data?.message || "Unable to save invoice.");
     }
   };
-
 
   if (masterLoading) {
     return (
@@ -381,7 +319,6 @@ setItems(
           Header Grid
       ========================================== */}
 
-      
       <div className="invoice-form-grid">
         <InvoiceSelect
           label="Customer"
@@ -504,8 +441,6 @@ setItems(
         </button>
       </div>
     </form>
-
-
   );
 }
 

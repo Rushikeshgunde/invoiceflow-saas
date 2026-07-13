@@ -1,0 +1,832 @@
+/* ==========================================
+   Invoice Template - Container
+   ========================================== */
+
+.invoice-template {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* Visual separation between major sections */
+.invoice-template > * + * {
+  padding-top: 1.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* First child (header) shouldn't have top border */
+.invoice-template > *:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+/* ==========================================
+   Print Styles
+   ========================================== */
+
+@media print {
+  .invoice-template {
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+    max-width: 100%;
+  }
+}
+
+/* ==========================================
+   Responsive Breakpoints
+   ========================================== */
+
+@media (max-width: 992px) {
+  .invoice-template {
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .invoice-template {
+    padding: 1.25rem;
+    gap: 1.25rem;
+    border-radius: 0.5rem;
+  }
+
+  .invoice-template > * + * {
+    padding-top: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .invoice-template {
+    padding: 1rem;
+    gap: 1rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* ==========================================
+   Invoice Items Table
+   ========================================== */
+
+.invoice-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  color: #1f2937;
+}
+
+/* ==========================================
+   Header
+   ========================================== */
+
+.invoice-items-table thead tr {
+  background: #2563eb;
+}
+
+.invoice-items-table thead th {
+  color: #ffffff;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  white-space: nowrap;
+}
+
+.invoice-items-table thead th:first-child {
+  border-top-left-radius: 0.5rem;
+}
+
+.invoice-items-table thead th:last-child {
+  border-top-right-radius: 0.5rem;
+}
+
+/* ==========================================
+   Body rows
+   ========================================== */
+
+.invoice-items-table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+  transition: background 0.15s ease;
+}
+
+.invoice-items-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+.invoice-items-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.invoice-items-table td {
+  padding: 0.75rem 1rem;
+  vertical-align: middle;
+}
+
+/* # column */
+.invoice-items-table td:first-child {
+  color: #6b7280;
+  font-weight: 500;
+  width: 2.5rem;
+}
+
+/* Product name */
+.invoice-items-table td:nth-child(2) {
+  font-weight: 500;
+  color: #111827;
+}
+
+/* SKU */
+.invoice-items-table td:nth-child(3) {
+  color: #6b7280;
+  font-family: monospace;
+  font-size: 0.85rem;
+}
+
+/* Numeric columns: Qty, Price, GST, Discount, Total - right align */
+.invoice-items-table td:nth-child(4),
+.invoice-items-table td:nth-child(5),
+.invoice-items-table td:nth-child(6),
+.invoice-items-table td:nth-child(7),
+.invoice-items-table td:nth-child(8) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Total column stands out */
+.invoice-items-table td:last-child {
+  font-weight: 600;
+  color: #2563eb;
+}
+
+/* ==========================================
+   Print Styles
+   ========================================== */
+
+@media print {
+  .invoice-items-table thead tr {
+    background: #2563eb !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .invoice-items-table tbody tr:hover {
+    background: transparent;
+  }
+}
+
+/* ==========================================
+   Responsive Breakpoints
+   ========================================== */
+
+@media (max-width: 992px) {
+  .invoice-items-table {
+    font-size: 0.85rem;
+  }
+
+  .invoice-items-table thead th,
+  .invoice-items-table td {
+    padding: 0.6rem 0.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Wrap table in a scroll container in JSX for this to work: 
+     <div className="invoice-items-table-wrapper"><table>...</table></div> */
+  .invoice-items-table {
+    min-width: 640px;
+  }
+}
+
+@media (max-width: 480px) {
+  .invoice-items-table thead th,
+  .invoice-items-table td {
+    padding: 0.5rem 0.6rem;
+  }
+}
+
+/* ==========================================
+   Customer Section
+   ========================================== */
+
+.customer-section {
+  width: 100%;
+}
+
+.bill-to {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* "Bill To" label */
+.bill-to h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  margin: 0 0 0.25rem 0;
+}
+
+/* Customer / Business name */
+.bill-to h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 0.5rem 0;
+}
+
+/* Detail rows */
+.bill-to p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.bill-to p strong {
+  font-weight: 600;
+  color: #1f2937;
+  display: inline-block;
+  min-width: 5.5rem;
+}
+
+/* ==========================================
+   Print Styles
+   ========================================== */
+
+@media print {
+  .bill-to h2 {
+    color: #000000;
+  }
+}
+
+/* ==========================================
+   Responsive Breakpoints
+   ========================================== */
+
+@media (max-width: 992px) {
+  .bill-to h2 {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .bill-to h3 {
+    font-size: 0.7rem;
+  }
+
+  .bill-to h2 {
+    font-size: 1.1rem;
+  }
+
+  .bill-to p {
+    font-size: 0.85rem;
+  }
+
+  .bill-to p strong {
+    min-width: 4.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bill-to {
+    gap: 0.3rem;
+  }
+
+  .bill-to p strong {
+    display: block;
+    min-width: unset;
+    margin-bottom: 0.1rem;
+  }
+}
+
+/* ==========================================
+   Invoice Totals
+   ========================================== */
+
+.invoice-totals {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.invoice-totals table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 280px;
+}
+
+.invoice-totals td {
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+/* Label column */
+.invoice-totals td:first-child {
+  text-align: left;
+  font-weight: 500;
+}
+
+/* Amount column */
+.invoice-totals td:last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: #111827;
+  font-weight: 500;
+}
+
+/* Divider before grand total */
+.invoice-totals tr:not(.invoice-grand-total) {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* ==========================================
+   Grand Total row - highlighted
+   ========================================== */
+
+.invoice-grand-total td {
+  padding-top: 0.85rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.invoice-grand-total td:first-child {
+  color: #111827;
+}
+
+.invoice-grand-total td:last-child {
+  color: #2563eb;
+}
+
+.invoice-grand-total {
+  border-top: 2px solid #2563eb;
+}
+
+/* ==========================================
+   Print Styles
+   ========================================== */
+
+@media print {
+  .invoice-grand-total {
+    border-top: 2px solid #2563eb !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .invoice-grand-total td:last-child {
+    color: #2563eb !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* ==========================================
+   Responsive Breakpoints
+   ========================================== */
+
+@media (max-width: 992px) {
+  .invoice-totals table {
+    max-width: 260px;
+  }
+}
+
+@media (max-width: 640px) {
+  .invoice-totals {
+    justify-content: stretch;
+  }
+
+  .invoice-totals table {
+    max-width: 100%;
+  }
+
+  .invoice-totals td {
+    font-size: 0.85rem;
+  }
+
+  .invoice-grand-total td {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .invoice-totals td {
+    padding: 0.4rem 0;
+  }
+
+  .invoice-grand-total td {
+    padding-top: 0.7rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* ==========================================
+   Payment Information
+   ========================================== */
+
+.payment-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.payment-info h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  margin: 0;
+}
+
+.payment-info table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 320px;
+}
+
+.payment-info td {
+  padding: 0.4rem 0;
+  font-size: 0.9rem;
+}
+
+/* Label column */
+.payment-info td:first-child {
+  color: #6b7280;
+  font-weight: 500;
+  width: 45%;
+}
+
+/* Value column */
+.payment-info td:last-child {
+  color: #111827;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* ==========================================
+   Status badge (targets the Status row's value)
+   ========================================== */
+
+.payment-info tr:first-child td:last-child {
+  display: inline-block;
+  padding: 0.15rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* ==========================================
+   Print Styles
+   ========================================== */
+
+@media print {
+  .payment-info tr:first-child td:last-child {
+    background: transparent !important;
+    color: #000000 !important;
+    padding: 0;
+  }
+}
+
+/* ==========================================
+   Responsive Breakpoints
+   ========================================== */
+
+@media (max-width: 992px) {
+  .payment-info table {
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 640px) {
+  .payment-info table {
+    max-width: 100%;
+  }
+
+  .payment-info td {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-info table {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .payment-info tbody,
+  .payment-info tr {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+/* ==========================================
+   Invoice Notes
+   ========================================== */
+
+.invoice-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.invoice-notes h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  margin: 0.75rem 0 0.25rem 0;
+}
+
+.invoice-notes h3:first-child {
+  margin-top: 0;
+}
+
+.invoice-notes p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #374151;
+  line-height: 1.6;
+}
+
+.invoice-notes ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.invoice-notes li {
+  font-size: 0.8rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.invoice-notes li::marker {
+  color: #2563eb;
+}
+
+/* ==========================================
+   Print Styles
+   ========================================== */
+
+@media print {
+  .invoice-notes h3 {
+    color: #374151;
+  }
+
+  .invoice-notes li::marker {
+    color: #374151;
+  }
+}
+
+/* ==========================================
+   Responsive Breakpoints
+   ========================================== */
+
+@media (max-width: 992px) {
+  .invoice-notes p,
+  .invoice-notes li {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .invoice-notes h3 {
+    font-size: 0.7rem;
+    margin-top: 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .invoice-notes ul {
+    padding-left: 1rem;
+  }
+}
+
+/* ==========================================
+   Invoice Signature Section
+   ========================================== */
+
+.invoice-signature-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* ==========================================
+   Bank Details (left column)
+   ========================================== */
+
+.invoice-bank-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+  min-width: 220px;
+}
+
+.invoice-bank-details h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7280;
+  margin: 0 0 0.25rem 0;
+}
+
+.invoice-bank-details p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.invoice-bank-details p strong {
+  font-weight: 600;
+  color: #1f2937;
+  display: inline-block;
+  min-width: 4.5rem;
+}
+
+/* ==========================================
+   Signature (right column)
+   ========================================== */
+
+.invoice-signature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  flex: 1;
+  min-width: 220px;
+}
+
+.invoice-signature p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #374151;
+}
+
+.invoice-signature h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0.2rem 0 0 0;
+}
+
+.signature-space {
+  height: 3.5rem;
+  width: 100%;
+  max-width: 200px;
+  border-bottom: 1px solid #9ca3af;
+  margin: 1rem 0 0.5rem 0;
+}
+
+/* ==========================================
+   Print Styles
+   ========================================== */
+
+@media print {
+  .invoice-signature-section {
+    page-break-inside: avoid;
+  }
+
+  .signature-space {
+    border-bottom: 1px solid #000000;
+  }
+}
+
+/* ==========================================
+   Responsive Breakpoints
+   ========================================== */
+
+@media (max-width: 992px) {
+  .invoice-signature-section {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .invoice-signature-section {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .invoice-signature {
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+  }
+
+  .signature-space {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .invoice-bank-details p,
+  .invoice-signature p {
+    font-size: 0.8rem;
+  }
+
+  .invoice-signature h3 {
+    font-size: 0.9rem;
+  }
+}
+
+/* ==========================================
+   Screen
+========================================== */
+
+.invoice-preview-page{
+    background:#eef2f7;
+    min-height:100vh;
+    padding:2rem;
+}
+
+.invoice-template{
+    background:#fff;
+    max-width:900px;
+    margin:auto;
+    padding:2.5rem;
+    border-radius:12px;
+    box-shadow:0 4px 18px rgba(0,0,0,.08);
+}
+
+/* ==========================================
+   Print
+========================================== */
+
+@media print{
+
+    body{
+        background:#fff;
+    }
+
+    .invoice-actions{
+        display:none !important;
+    }
+
+    .sidebar{
+        display:none !important;
+    }
+
+    .topbar{
+        display:none !important;
+    }
+
+    .dashboard-layout{
+        padding:0;
+        margin:0;
+    }
+
+    .invoice-preview-page{
+        padding:0;
+        background:#fff;
+    }
+
+    .invoice-template{
+        width:100%;
+        max-width:100%;
+        margin:0;
+        padding:18mm;
+        border:none;
+        box-shadow:none;
+    }
+
+}
+.invoice-copy-label{
+
+    display:inline-block;
+
+    float:right;
+
+    padding:.5rem 1.2rem;
+
+    border:2px solid #1e40af;
+
+    color:#1e40af;
+
+    font-weight:700;
+
+    letter-spacing:2px;
+
+    border-radius:6px;
+
+    margin-bottom:1rem;
+
+}

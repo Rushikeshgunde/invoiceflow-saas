@@ -1,0 +1,259 @@
+/* ==========================================
+   Settings Page
+   ========================================== */
+
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ==========================================
+   Header (styled as a card)
+   ========================================== */
+
+.settings-header {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.settings-header h1 {
+  margin: 0 0 0.375rem 0;
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.settings-header p {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: #64748b;
+}
+
+/* ==========================================
+   Settings Grid (2 columns)
+   ========================================== */
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* ==========================================
+   Setting Card
+   ========================================== */
+
+.setting-card {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.setting-card h2 {
+  margin: 0 0 1.25rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+/* ==========================================
+   Form
+   ========================================== */
+
+.setting-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.setting-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.setting-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #334155;
+}
+
+.setting-group input,
+.setting-group textarea {
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.9375rem;
+  color: #1e293b;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.setting-group textarea {
+  resize: vertical;
+  min-height: 4rem;
+}
+
+.setting-group input:focus,
+.setting-group textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.setting-group input::placeholder,
+.setting-group textarea::placeholder {
+  color: #94a3b8;
+}
+
+/* ==========================================
+   Select
+   ========================================== */
+
+.setting-group select {
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.9375rem;
+  color: #1e293b;
+  font-family: inherit;
+  background: #ffffff;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+  width: 100%;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2.25rem;
+}
+
+.setting-group select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* ==========================================
+   Checkbox Row
+   ========================================== */
+
+.setting-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.setting-checkbox input[type="checkbox"] {
+  width: 1.125rem;
+  height: 1.125rem;
+  accent-color: #2563eb;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.setting-checkbox label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #334155;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ==========================================
+   Save Button
+   ========================================== */
+
+.setting-save-btn {
+  align-self: flex-start;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.625rem 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.05s ease;
+}
+
+.setting-save-btn:hover {
+  background: #1d4ed8;
+}
+
+.setting-save-btn:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================
+   Responsive Breakpoints
+   ========================================== */
+
+@media (max-width: 992px) {
+  .settings-grid {
+    gap: 1.25rem;
+  }
+
+  .setting-card,
+  .settings-header {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .settings-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .setting-card,
+  .settings-header {
+    padding: 1rem;
+    border-radius: 0.625rem;
+  }
+
+  .setting-form {
+    gap: 1rem;
+  }
+
+  .setting-save-btn {
+    align-self: stretch;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .setting-card,
+  .settings-header {
+    padding: 0.875rem;
+  }
+
+  .setting-card h2 {
+    font-size: 1rem;
+  }
+
+  .settings-header h1 {
+    font-size: 1.1875rem;
+  }
+
+  .setting-group input,
+  .setting-group textarea,
+  .setting-group select {
+    font-size: 0.875rem;
+  }
+
+  .setting-checkbox label {
+    font-size: 0.8125rem;
+  }
+}

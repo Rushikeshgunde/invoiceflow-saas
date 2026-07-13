@@ -1,221 +1,270 @@
-// // ==========================================
-// // Imports
-// // ==========================================
+// ==========================================
+// Imports
+// ==========================================
 
-// import { useEffect, useState } from "react";
-// import { useForm } from "react-hook-form";
-// import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
-// import { createPayment, updatePayment } from "../../services/paymentService";
+import { usePayment } from "../../context/PaymentContext";
+import { getInvoices } from "../../services/invoiceService";
 
-// import { getInvoices } from "../../services/invoiceService";
+import "../../styles/Payments.css";
 
-// import "../../styles/Payments.css";
+// ==========================================
+// Payment Form
+// ==========================================
 
-// // ==========================================
-// // Payment Form
-// // ==========================================
+function PaymentForm({
+  payment,
+  onClose,
+  onAdd,
+  onUpdate,
+}) {
+  const { addPayment, editPayment } = usePayment();
 
-// function PaymentForm({ open, payment, onClose, onSuccess }) {
-//   const [invoices, setInvoices] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-//   const {
-//     register,
-//     handleSubmit,
-//     reset,
-//     formState: { errors, isSubmitting },
-//   } = useForm({
-//     defaultValues: {
-//       invoice: "",
-//       amount: "",
-//       paymentDate: "",
-//       paymentMethod: "Cash",
-//       referenceNumber: "",
-//       notes: "",
-//     },
-//   });
+  const [invoices, setInvoices] = useState([]);
 
-//   // ==========================================
-//   // Load invoices
-//   // ==========================================
+  const [formData, setFormData] = useState({
+    invoice: "",
+    amount: "",
+    paymentDate: new Date().toISOString().split("T")[0],
+    paymentMethod: "Cash",
+    referenceNumber: "",
+    notes: "",
+  });
 
-//   useEffect(() => {
-//     if (!open) return;
+  // ==========================================
+  // Load Invoices
+  // ==========================================
 
-//     loadInvoices();
-//   }, [open]);
+  useEffect(() => {
+    loadInvoices();
+  }, []);
 
-//   const loadInvoices = async () => {
-//     try {
-//       const res = await getInvoices();
+  const loadInvoices = async () => {
+    try {
+      const res = await getInvoices();
 
-//       setInvoices(res.invoices || []);
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
+      setInvoices(res.invoices || []);
+    } catch (error) {
+      console.error(error);
 
-//   // ==========================================
-//   // Edit Mode
-//   // ==========================================
+      toast.error("Failed to load invoices.");
+    }
+  };
 
-//   useEffect(() => {
-//     if (payment) {
-//       reset({
-//         invoice: payment.invoice?._id,
-//         amount: payment.amount,
-//         paymentDate: payment.paymentDate?.substring(0, 10),
-//         paymentMethod: payment.paymentMethod,
-//         referenceNumber: payment.referenceNumber || "",
-//         notes: payment.notes || "",
-//       });
-//     } else {
-//       reset({
-//         invoice: "",
-//         amount: "",
-//         paymentDate: "",
-//         paymentMethod: "Cash",
-//         referenceNumber: "",
-//         notes: "",
-//       });
-//     }
-//   }, [payment, reset]);
+  // ==========================================
+  // Edit Mode
+  // ==========================================
 
-//   // ==========================================
-//   // Submit
-//   // ==========================================
+  useEffect(() => {
+    if (payment) {
+      setFormData({
+        invoice: payment.invoice?._id || "",
+        amount: payment.amount || "",
+        paymentDate: payment.paymentDate
+          ? payment.paymentDate.slice(0, 10)
+          : new Date().toISOString().split("T")[0],
+        paymentMethod: payment.paymentMethod || "Cash",
+        referenceNumber: payment.referenceNumber || "",
+        notes: payment.notes || "",
+      });
+    }
+  }, [payment]);
 
-//   const onSubmit = async (data) => {
-//     try {
-//       if (payment) {
-//         await updatePayment(payment._id, data);
+  // ==========================================
+  // Handle Change
+  // ==========================================
 
-//         toast.success("Payment updated successfully.");
-//       } else {
-//         await createPayment(data);
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
-//         toast.success("Payment recorded successfully.");
-//       }
+  // ==========================================
+  // Submit
+  // ==========================================
 
-//       onSuccess();
-//     } catch (error) {
-//       console.error(error);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-//       toast.error(error.response?.data?.message || "Something went wrong.");
-//     }
-//   };
+    if (!formData.invoice)
+      return toast.error("Please select an invoice.");
 
-//   if (!open) return null;
+    if (!formData.amount)
+      return toast.error("Please enter payment amount.");
 
-//   return (
-//     <div className="payment-modal-overlay">
-//       <div className="payment-form-modal">
-//         <div className="payment-modal-header">
-//           <h2>{payment ? "Edit Payment" : "Record Payment"}</h2>
+    if (Number(formData.amount) <= 0)
+      return toast.error("Amount must be greater than zero.");
 
-//           <button onClick={onClose} className="payment-form-close-btn">
-//             ×
-//           </button>
-//         </div>
+    try {
+      setLoading(true);
 
-//         <form onSubmit={handleSubmit(onSubmit)} className="payment-form">
-//           {/* Invoice */}
+      let result;
 
-//           <label>Invoice</label>
+      if (payment) {
+        result = await editPayment(payment._id, formData);
 
-//           <select
-//             {...register("invoice", {
-//               required: "Invoice is required",
-//             })}
-//           >
-//             <option value="">Select Invoice</option>
+        if (result.success && onUpdate) {
+          onUpdate();
+        }
+      } else {
+        result = await addPayment(formData);
 
-//             {invoices.map((invoice) => (
-//               <option key={invoice._id} value={invoice._id}>
-//                 {invoice.invoiceNumber}
-//               </option>
-//             ))}
-//           </select>
+        if (result.success && onAdd) {
+          onAdd();
+        }
+      }
 
-//           <p>{errors.invoice?.message}</p>
+      if (result.success) {
+        onClose();
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
-//           {/* Amount */}
+  // ==========================================
+  // JSX
+  // ==========================================
 
-//           <label>Amount</label>
+  return (
+    <form
+      className="payment-form"
+      onSubmit={handleSubmit}
+    >
+      {/* Invoice */}
 
-//           <input
-//             type="number"
-//             {...register("amount", {
-//               required: "Amount is required",
-//             })}
-//           />
+      <div className="payment-form-group">
+        <label>Invoice *</label>
 
-//           <p>{errors.amount?.message}</p>
+        <select
+          name="invoice"
+          value={formData.invoice}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select Invoice</option>
 
-//           {/* Payment Date */}
+          {invoices.map((invoice) => (
+            <option
+              key={invoice._id}
+              value={invoice._id}
+            >
+              {invoice.invoiceNumber}
+            </option>
+          ))}
+        </select>
+      </div>
 
-//           <label>Payment Date</label>
+      {/* Amount */}
 
-//           <input
-//             type="date"
-//             {...register("paymentDate", {
-//               required: "Payment Date is required",
-//             })}
-//           />
+      <div className="payment-form-group">
+        <label>Amount *</label>
 
-//           <p>{errors.paymentDate?.message}</p>
+        <input
+          type="number"
+          name="amount"
+          value={formData.amount}
+          onChange={handleChange}
+          placeholder="Enter payment amount"
+          min="1"
+          step="0.01"
+          required
+        />
+      </div>
 
-//           {/* Method */}
+      {/* Payment Date */}
 
-//           <label>Payment Method</label>
+      <div className="payment-form-group">
+        <label>Payment Date *</label>
 
-//           <select {...register("paymentMethod")}>
-//             <option>Cash</option>
+        <input
+          type="date"
+          name="paymentDate"
+          value={formData.paymentDate}
+          onChange={handleChange}
+          required
+        />
+      </div>
 
-//             <option>UPI</option>
+      {/* Payment Method */}
 
-//             <option>Bank Transfer</option>
+      <div className="payment-form-group">
+        <label>Payment Method *</label>
 
-//             <option>Cheque</option>
+        <select
+          name="paymentMethod"
+          value={formData.paymentMethod}
+          onChange={handleChange}
+        >
+          <option value="Cash">Cash</option>
+          <option value="UPI">UPI</option>
+          <option value="Card">Card</option>
+          <option value="Bank Transfer">
+            Bank Transfer
+          </option>
+          <option value="Cheque">Cheque</option>
+        </select>
+      </div>
 
-//             <option>Card</option>
-//           </select>
+      {/* Reference Number */}
 
-//           {/* Reference */}
+      <div className="payment-form-group">
+        <label>Reference Number</label>
 
-//           <label>Reference Number</label>
+        <input
+          type="text"
+          name="referenceNumber"
+          value={formData.referenceNumber}
+          onChange={handleChange}
+          placeholder="Transaction / Cheque Number"
+        />
+      </div>
 
-//           <input {...register("referenceNumber")} />
+      {/* Notes */}
 
-//           {/* Notes */}
+      <div className="payment-form-group">
+        <label>Notes</label>
 
-//           <label>Notes</label>
+        <textarea
+          name="notes"
+          value={formData.notes}
+          onChange={handleChange}
+          rows="4"
+          placeholder="Additional notes..."
+        />
+      </div>
 
-//           <textarea rows="4" {...register("notes")} />
+      {/* Footer */}
 
-//           {/* Buttons */}
+      <div className="payment-form-actions">
+        <button
+          type="button"
+          className="payment-cancel-btn"
+          onClick={onClose}
+        >
+          Cancel
+        </button>
 
-//           <div className="payment-form-actions">
-//             <button
-//               type="button"
-//               className="payment-cancel-btn"
-//               onClick={onClose}
-//             >
-//               Cancel
-//             </button>
+        <button
+          type="submit"
+          className="payment-save-btn"
+          disabled={loading}
+        >
+          {loading
+            ? "Saving..."
+            : payment
+            ? "Update Payment"
+            : "Save Payment"}
+        </button>
+      </div>
+    </form>
+  );
+}
 
-//             <button
-//               type="submit"
-//               className="payment-save-btn"
-//               disabled={isSubmitting}
-//             >
-//               {payment ? "Update Payment" : "Save Payment"}
-//             </button>
-//           </div>
-//         </form>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default PaymentForm;
+export default PaymentForm;

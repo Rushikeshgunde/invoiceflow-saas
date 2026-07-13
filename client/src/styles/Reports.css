@@ -1,0 +1,431 @@
+/* ==========================================
+   Export Buttons
+   ========================================== */
+
+.report-export-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.report-export-buttons button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.05s ease;
+  white-space: nowrap;
+}
+
+.report-export-buttons button:active {
+  transform: scale(0.97);
+}
+
+.report-export-buttons svg {
+  font-size: 1rem;
+}
+
+/* ==========================================
+   PDF Button
+   ========================================== */
+
+.report-pdf-btn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.report-pdf-btn:hover {
+  background: #fecaca;
+}
+
+/* ==========================================
+   Excel Button
+   ========================================== */
+
+.report-excel-btn {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.report-excel-btn:hover {
+  background: #bbf7d0;
+}
+
+/* ==========================================
+   Print Button
+   ========================================== */
+
+.report-print-btn {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.report-print-btn:hover {
+  background: #dbeafe;
+}
+
+/* ==========================================
+   Responsive Breakpoints
+   ========================================== */
+
+@media (max-width: 640px) {
+  .report-export-buttons {
+    width: 100%;
+  }
+
+  .report-export-buttons button {
+    flex: 1;
+    justify-content: center;
+    padding: 0.625rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .report-export-buttons {
+    flex-direction: column;
+  }
+
+  .report-export-buttons button {
+    width: 100%;
+  }
+}
+
+/* ==========================================
+   Report Summary Grid
+   ========================================== */
+
+.report-summary {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
+}
+
+/* ==========================================
+   Summary Card
+   ========================================== */
+
+.report-summary-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  padding: 1.25rem;
+  box-sizing: border-box;
+}
+
+.report-summary-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.625rem;
+  font-size: 1.125rem;
+  flex-shrink: 0;
+}
+
+.report-summary-content h5 {
+  margin: 0 0 0.25rem 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.report-summary-content h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  white-space: nowrap;
+}
+
+/* ==========================================
+   Color Variants
+   ========================================== */
+
+.report-summary-card.green .report-summary-icon {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.report-summary-card.blue .report-summary-icon {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.report-summary-card.purple .report-summary-icon {
+  background: #f3e8ff;
+  color: #9333ea;
+}
+
+.report-summary-card.orange .report-summary-icon {
+  background: #ffedd5;
+  color: #ea580c;
+}
+
+.report-summary-card.red .report-summary-icon {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* ==========================================
+   Responsive Breakpoints
+   ========================================== */
+
+@media (max-width: 992px) {
+  .report-summary {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .report-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .report-summary-card {
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .report-summary-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 1rem;
+  }
+
+  .report-summary-content h3 {
+    font-size: 1.0625rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .report-summary {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================
+   Revenue Chart Card
+   ========================================== */
+
+.report-chart-card {
+  background: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   Header
+   ========================================== */
+
+.report-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.report-chart-header h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+/* ==========================================
+   Recharts Overrides
+   ========================================== */
+
+.report-chart-card .recharts-cartesian-grid-horizontal line,
+.report-chart-card .recharts-cartesian-grid-vertical line {
+  stroke: #e2e8f0;
+}
+
+.report-chart-card .recharts-tooltip-wrapper {
+  outline: none;
+}
+
+.report-chart-card .recharts-default-tooltip {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 0.5rem !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0.75rem !important;
+}
+
+.report-chart-card .recharts-tooltip-label {
+  color: #64748b;
+  font-weight: 500;
+  margin-bottom: 0.25rem !important;
+}
+
+.report-chart-card .recharts-tooltip-item {
+  color: #2563eb !important;
+  font-weight: 600;
+}
+
+.report-chart-card .recharts-text.recharts-cartesian-axis-tick-value {
+  fill: #64748b;
+  font-size: 0.8125rem;
+}
+
+/* ==========================================
+   Responsive Breakpoints
+   ========================================== */
+
+@media (max-width: 992px) {
+  .report-chart-card {
+    padding: 1.25rem;
+  }
+
+  .report-chart-header h3 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .report-chart-card {
+    padding: 1rem;
+    border-radius: 0.625rem;
+  }
+
+  .report-chart-header {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .report-chart-card {
+    padding: 0.875rem;
+  }
+
+  .report-chart-header h3 {
+    font-size: 0.9375rem;
+  }
+}
+
+
+/* ==========================================
+   Pie Chart — Legend & Labels
+   (reuses .report-chart-card / .report-chart-header
+   from RevenueChart.css)
+   ========================================== */
+
+.report-chart-card .recharts-legend-item-text {
+  color: #334155 !important;
+  font-size: 0.875rem;
+}
+
+.report-chart-card .recharts-pie-label-text {
+  fill: #1e293b;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.report-chart-card .recharts-legend-wrapper {
+  padding-top: 0.5rem;
+}
+
+/* ==========================================
+   Responsive
+   ========================================== */
+
+@media (max-width: 480px) {
+  .report-chart-card .recharts-legend-item-text {
+    font-size: 0.75rem;
+  }
+
+  .report-chart-card .recharts-pie-label-text {
+    font-size: 0.6875rem;
+  }
+}
+
+/* ==========================================
+   Reports Page
+   ========================================== */
+
+.reports-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ==========================================
+   Loading State
+   ========================================== */
+
+.reports-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+/* ==========================================
+   Chart Grid
+   ========================================== */
+
+.reports-chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* Revenue chart spans full width, invoice + payment charts sit side by side below it */
+.reports-chart-grid > *:first-child {
+  grid-column: 1 / -1;
+}
+
+/* ==========================================
+   Table Grid
+   ========================================== */
+
+.reports-table-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.reports-table-grid:empty {
+  display: none;
+}
+
+/* ==========================================
+   Responsive Breakpoints
+   ========================================== */
+
+@media (max-width: 992px) {
+  .reports-chart-grid,
+  .reports-table-grid {
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .reports-chart-grid,
+  .reports-table-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .reports-chart-grid > *:first-child {
+    grid-column: auto;
+  }
+}

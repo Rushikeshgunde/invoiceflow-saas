@@ -94,9 +94,9 @@ function ProfileCard({ profile }) {
 
       {/* Button */}
 
-      <button type="button" className="profile-edit-btn">
+      {/* <button type="button" className="profile-edit-btn">
         Edit Profile
-      </button>
+      </button> */}
     </div>
   );
 }

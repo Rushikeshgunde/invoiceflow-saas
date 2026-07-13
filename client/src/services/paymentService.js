@@ -1,47 +1,21 @@
+import api from "./api";
 
-// import api from "./api";
+export const getPayments = async () => {
+  const { data } = await api.get("/payments");
+  return data;
+};
 
-// // ==========================================
-// // Get All Payments
-// // ==========================================
+export const createPayment = async (payment) => {
+  const { data } = await api.post("/payments", payment);
+  return data;
+};
 
-// export const getPayments = async () => {
-//   const { data } = await api.get("/payments");
+export const updatePayment = async (id, payment) => {
+  const { data } = await api.put(`/payments/${id}`, payment);
+  return data;
+};
 
-//   return data;
-// };
-
-// // ==========================================
-// // Get Single Payment
-// // ==========================================
-
-// export const getPayment = async (id) => {
-//   const { data } = await api.get(`/payments/${id}`);
-
-//   return data;
-// };
-
-// // ==========================================
-// // Create Payment
-// // ==========================================
-
-// export const createPayment = async (paymentData) => {
-//   const { data } = await api.post(
-//     "/payments",
-//     paymentData
-//   );
-
-//   return data;
-// };
-
-// // ==========================================
-// // Delete Payment
-// // ==========================================
-
-// export const deletePayment = async (id) => {
-//   const { data } = await api.delete(
-//     `/payments/${id}`
-//   );
-
-//   return data;
-// };
+export const deletePayment = async (id) => {
+  const { data } = await api.delete(`/payments/${id}`);
+  return data;
+};

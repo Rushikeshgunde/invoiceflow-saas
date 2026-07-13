@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+// import { useNotification } from "../context/NotificationContext";
 
 import CustomerToolbar from "../components/customers/CustomerToolbar";
 import CustomerTable from "../components/customers/CustomerTable";
@@ -23,6 +24,8 @@ function Customers() {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  // const { refreshNotifications } = useNotification();
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);

@@ -10,6 +10,15 @@ export const getInvoices = async () => {
 };
 
 // ==========================================
+// Get Single Invoice
+// ==========================================
+
+export const getInvoiceById = async (id) => {
+  const { data } = await api.get(`/invoices/${id}`);
+  return data;
+};
+
+// ==========================================
 // Create Invoice
 // ==========================================
 

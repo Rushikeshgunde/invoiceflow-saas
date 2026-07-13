@@ -1,6 +1,6 @@
 const Product = require("../models/Product");
 const { validationResult } = require("express-validator");
-
+const createNotification = require("../utils/createNotification");
 // ======================================
 // Create Product
 // ======================================
@@ -60,6 +60,13 @@ exports.createProduct = async (req, res) => {
       user: req.user.id,
     });
 
+    await createNotification({
+  user: req.user.id,
+  title: "Product Added",
+  message: `${product.productName} added successfully.`,
+  type: "product",
+});
+
     res.status(201).json({
       success: true,
       message: "Product created successfully.",
@@ -74,6 +81,8 @@ exports.createProduct = async (req, res) => {
     });
   }
 };
+
+
 
 // ======================================
 // Get All Products

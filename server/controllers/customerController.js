@@ -1,5 +1,6 @@
 const Customer = require("../models/Customer");
-
+const createNotification = require("../utils/createNotification");
+// const createNotification = require("../utils/createNotification");
 // ===============================
 // Create Customer
 // ===============================
@@ -9,6 +10,13 @@ const createCustomer = async (req, res) => {
       ...req.body,
       user: req.user.id,
     });
+
+    await createNotification({
+  user: req.user.id,
+  title: "Customer Added",
+  message: `${customer.customerName} added successfully.`,
+  type: "customer",
+});
 
     res.status(201).json({
       success: true,

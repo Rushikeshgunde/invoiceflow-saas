@@ -9,6 +9,7 @@ import {
 
 import CompanyForm from "../components/company/CompanyForm";
 
+
 import { toast } from "react-toastify";
 
 function CompanySettings() {
@@ -66,6 +67,8 @@ function CompanySettings() {
         company={company}
         onSubmit={handleSubmit}
       />
+
+      
     </section>
   );
 }

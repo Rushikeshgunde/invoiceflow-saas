@@ -1,163 +1,196 @@
-// // ==========================================
-// // Imports
-// // ==========================================
+// ==========================================
+// Imports
+// ==========================================
 
-// import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 
-// import { toast } from "react-toastify";
+import "../styles/Payments.css";
 
-// import PageHeader from "../components/common/PageHeader";
-// import PaymentSummaryCards from "../components/payments/PaymentSummaryCards";
-// import PaymentTable from "../components/payments/PaymentTable";
-// import PaymentModal from "../components/payments/PaymentModal";
-// import PaymentForm from "../components/payments/PaymentForm";
+import { usePayment } from "../context/PaymentContext";
 
-// import { getPayments, deletePayment } from "../services/paymentService";
+import PaymentSummary from "../components/payments/PaymentSummary";
+import PaymentFilter from "../components/payments/PaymentFilter";
+import PaymentTable from "../components/payments/PaymentTable";
+import PaymentModal from "../components/payments/PaymentModal";
+import AddPaymentModal from "../components/payments/AddPaymentModal";
+import EditPaymentModal from "../components/payments/EditPaymentModal";
+import DeletePaymentModal from "../components/payments/DeletePaymentModal";
 
-// import "../styles/Payments.css";
+// ==========================================
+// Payments Page
+// ==========================================
 
-// // ==========================================
-// // Payments Page
-// // ==========================================
+function Payments() {
+  const {
+    payments,
+    loading,
+    removePayment,
+  } = usePayment();
 
-// function Payments() {
-//   const [payments, setPayments] = useState([]);
-//   const [search, setSearch] = useState("");
-//   const [loading, setLoading] = useState(true);
-//   const [selectedPayment, setSelectedPayment] = useState(null);
-//   const [selectedEditPayment, setSelectedEditPayment] = useState(null);
-//   const [showPaymentForm, setShowPaymentForm] = useState(false);
+  // ==========================================
+  // States
+  // ==========================================
 
-//   const handleView = (payment) => {
-//     setSelectedPayment(payment);
-//   };
+  const [search, setSearch] = useState("");
+  const [method, setMethod] = useState("");
 
-//   const handleEdit = (payment) => {
-//     setSelectedEditPayment(payment);
-//     setShowPaymentForm(true);
-//   };
+  const [selectedPayment, setSelectedPayment] = useState(null);
 
-//   // ==========================================
-//   // Load Payments
-//   // ==========================================
+  const [showViewModal, setShowViewModal] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-//   useEffect(() => {
-//     loadPayments();
-//   }, []);
+  // ==========================================
+  // Close All Modals
+  // ==========================================
 
-//   const loadPayments = async () => {
-//     try {
-//       setLoading(true);
+  const closeAllModals = () => {
+    setShowViewModal(false);
+    setShowAddModal(false);
+    setShowEditModal(false);
+    setShowDeleteModal(false);
 
-//       const res = await getPayments();
+    setSelectedPayment(null);
+  };
 
-//       setPayments(res.payments || []);
-//     } catch (error) {
-//       console.error(error);
+  // ==========================================
+  // View Payment
+  // ==========================================
 
-//       toast.error("Failed to load payments.");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
+  const handleView = (payment) => {
+    closeAllModals();
 
-//   // ==========================================
-//   // Delete Payment
-//   // ==========================================
+    setSelectedPayment(payment);
+    setShowViewModal(true);
+  };
 
-//   const handleDelete = async (id) => {
-//     const confirmDelete = window.confirm("Delete this payment?");
+  // ==========================================
+  // Edit Payment
+  // ==========================================
 
-//     if (!confirmDelete) return;
+  const handleEdit = (payment) => {
+    closeAllModals();
 
-//     try {
-//       await deletePayment(id);
+    setSelectedPayment(payment);
+    setShowEditModal(true);
+  };
 
-//       toast.success("Payment deleted successfully.");
+  // ==========================================
+  // Delete Payment
+  // ==========================================
 
-//       loadPayments();
-//     } catch (error) {
-//       console.error(error);
+  const handleDelete = (payment) => {
+    closeAllModals();
 
-//       toast.error("Unable to delete payment.");
-//     }
-//   };
+    setSelectedPayment(payment);
+    setShowDeleteModal(true);
+  };
 
-//   // ==========================================
-//   // Search
-// //   ==========================================
+  // ==========================================
+  // Confirm Delete
+  // ==========================================
 
-//   const filteredPayments = useMemo(() => {
-//     return payments.filter((payment) => {
-//       const invoice = payment.invoice?.invoiceNumber || "";
+  const handleDeleteConfirm = async (id) => {
+    const result = await removePayment(id);
 
-//       const customer = payment.invoice?.customer?.customerName || "";
+    if (result.success) {
+      closeAllModals();
+    }
+  };
 
-//       return (
-//         invoice.toLowerCase().includes(search.toLowerCase()) ||
-//         customer.toLowerCase().includes(search.toLowerCase())
-//       );
-//     });
-//   }, [payments, search]);
+  // ==========================================
+  // Filter Payments
+  // ==========================================
 
-//   // ==========================================
-//   // Render
-//   // ==========================================
+  const filteredPayments = payments.filter((payment) => {
+    const invoice =
+      payment.invoice?.invoiceNumber?.toLowerCase() || "";
 
-//   if (loading) {
-//     return <div className="page-loader">Loading payments...</div>;
-//   }
+    const customer =
+      payment.customer?.customerName?.toLowerCase() ||
+      payment.customer?.businessName?.toLowerCase() ||
+      "";
 
-//   return (
-//     <div className="payments-page">
-//       <PageHeader
-//         title="Payments"
-//         subtitle="Manage customer payments"
-//         buttonText="+ Record Payment"
-//         onButtonClick={() => {
-//           setSelectedEditPayment(null);
-//           setShowPaymentForm(true);
-//         }}
-//       />
+    const matchesSearch =
+      invoice.includes(search.toLowerCase()) ||
+      customer.includes(search.toLowerCase());
 
-//       <PaymentModal
-//         payment={selectedPayment}
-//         onClose={() => setSelectedPayment(null)}
-//       />
+    const matchesMethod =
+      method === "" ||
+      payment.paymentMethod === method;
 
-//       <PaymentForm
-//         open={showPaymentForm}
-//         payment={selectedEditPayment}
-//         onClose={() => {
-//           setShowPaymentForm(false);
-//           setSelectedEditPayment(null);
-//         }}
-//         onSuccess={() => {
-//           loadPayments();
-//           setShowPaymentForm(false);
-//           setSelectedEditPayment(null);
-//         }}
-//       />
+    return matchesSearch && matchesMethod;
+  });
 
-//       <PaymentSummaryCards payments={payments} />
+  // ==========================================
+  // Render
+  // ==========================================
 
-//       <div className="payments-toolbar">
-//         <input
-//           type="text"
-//           placeholder="Search payment..."
-//           value={search}
-//           onChange={(e) => setSearch(e.target.value)}
-//         />
-//       </div>
+  return (
+    <section className="payments-page">
+      {/* Summary */}
 
-//       <PaymentTable
-//         payments={filteredPayments}
-//         onView={handleView}
-//         onEdit={handleEdit}
-//         onDelete={handleDelete}
-//       />
-//     </div>
-//   );
-// }
+      <PaymentSummary payments={payments} />
 
-// export default Payments;
+      {/* Filters */}
+
+      <PaymentFilter
+        search={search}
+        setSearch={setSearch}
+        method={method}
+        setMethod={setMethod}
+        onAddPayment={() => setShowAddModal(true)}
+        onResetFilters={() => {
+          setSearch("");
+          setMethod("");
+        }}
+      />
+
+      {/* Payment Table */}
+
+      <PaymentTable
+        payments={filteredPayments}
+        loading={loading}
+        onView={handleView}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
+
+      {/* View Payment */}
+
+      <PaymentModal
+        open={showViewModal}
+        payment={selectedPayment}
+        onClose={closeAllModals}
+      />
+
+      {/* Add Payment */}
+
+      <AddPaymentModal
+        open={showAddModal}
+        onClose={closeAllModals}
+      />
+
+      {/* Edit Payment */}
+
+      <EditPaymentModal
+        open={showEditModal}
+        payment={selectedPayment}
+        onClose={closeAllModals}
+      />
+
+      {/* Delete Payment */}
+
+      <DeletePaymentModal
+        open={showDeleteModal}
+        payment={selectedPayment}
+        loading={loading}
+        onClose={closeAllModals}
+        onDelete={handleDeleteConfirm}
+      />
+    </section>
+  );
+}
+
+export default Payments;
